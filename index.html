@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Héctor & Anna — Love World Tour</title>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,400&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+
+/* 🎨 PALETA ACUARELA */
+:root{
+--sky-blue:#9ecae1;
+--mint:#8fd3c7;
+--sand:#e8d8b5;
+--gold-soft:#d4a373;
+--dark:#2f3e46;
+--text:#344e41;
+--muted:#7a8c8a;
+--bg:#f9faf9;
+--border:#e6e6e6;
+}
+
+
+body{
+font-family:'Inter',sans-serif;
+background:var(--bg);
+color:var(--text);
+}
+
+
+/* HERO */
+.hero{
+position:relative;
+text-align:center;
+padding:70px 20px 140px;
+background:white;
+overflow:hidden;
+}
+
+
+.hero::after{
+content:"";
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+height:160px;
+background:url('invitacion.jpg') center bottom/cover no-repeat;
+opacity:.9;
+}
+
+
+.hero-title{
+font-family:'Great Vibes',cursive;
+font-size:42px;
+margin-bottom:10px;
+color:var(--dark);
+}
+
+
+.hero-sub{
+font-size:14px;
+line-height:1.7;
+color:var(--muted);
+margin-bottom:20px;
+}
+
+
+.hero-cta{
+background:var(--gold-soft);
+border:none;
+padding:12px 24px;
+border-radius:12px;
+font-weight:600;
+cursor:pointer;
+}
+
+
+/* ITEMS */
+.item-card{
+display:flex;
+gap:12px;
+padding:16px;
+background:rgba(255,255,255,0.85);
+backdrop-filter:blur(6px);
+border-bottom:1px solid var(--border);
+animation:fadeUp .4s ease;
+}
+
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+
+.item-emoji{font-size:24px}
+
+
+.item-name{font-weight:600;margin-bottom:3px}
+.item-desc{font-size:12px;color:var(--muted)}
+
+
+.i-track{
+height:4px;
+background:#eee;
+border-radius:10px;
+margin:6px 0;
+}
+
+
+.i-fill{
+height:100%;
+background:var(--mint);
+border-radius:10px;
+}
+
+
+.item-meta{
+font-size:11px;
+display:flex;
+justify-content:space-between;
+color:var(--muted);
+}
+
+
+.btn-apoyar{
+padding:10px 14px;
+border-radius:10px;
+border:1px solid var(--muted);
+background:white;
+cursor:pointer;
+font-size:12px;
+}
+
+
+/* MODAL */
+.overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.5);
+display:flex;
+align-items:flex-end;
+opacity:0;
+pointer-events:none;
+transition:.2s;
+}
+
+
+.overlay.open{
+opacity:1;
+pointer-events:auto;
+}
+
+
+.modal{
+background:#fff;
+width:100%;
+border-radius:20px 20px 0 0;
+padding:20px;
+transform:translateY(100%);
+transition:.3s;
+}
+
+
+.overlay.open .modal{
+transform:translateY(0);
+}
+
+
+input{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid var(--border);
+margin-bottom:12px;
+}
+
+
+.quick-amounts{
+display:flex;
+gap:8px;
+margin-bottom:12px;
+}
+
+
+.quick-amounts button{
+flex:1;
+padding:10px;
+border-radius:8px;
+border:1px solid var(--border);
+background:#fff;
+}
+
+
+/* THANKS */
+.thanks{
+display:none;
+text-align:center;
+}
+
+
+.thanks.show{
+display:block;
+}
+
+
+.bizum{
+background:var(--dark);
+color:#fff;
+padding:16px;
+border-radius:12px;
+margin:16px 0;
+}
+
+
+/* FOOTER */
+.footer{
+text-align:center;
+padding:30px;
+font-size:13px;
+color:var(--muted);
+}
+
+
+</style>
+</head>
+
+
+<body>
+
+
+<header class="hero">
+<h1 class="hero-title">Héctor & Anna</h1>
+
+
+<p class="hero-sub">
+Lo más importante para nosotros es compartir este día con vosotros 💛<br><br>
+
+
+Vuestra presencia en la boda es el mejor regalo que podríamos recibir.<br><br>
+
+
+Y si además queréis ayudarnos a empezar esta nueva aventura por el mundo,<br>
+podéis contribuir en alguna experiencia ✈️🌏
+</p>
+
+
+<button class="hero-cta" onclick="scrollToItems()">Ver experiencias</button>
+</header>
+
+
+<main id="main"></main>
+
+
+<footer class="footer">
+Gracias por formar parte de este viaje 💛
+</footer>
+
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+<div class="modal">
+
+
+<div id="formView">
+<h3 id="mName"></h3>
+<p id="mAvail"></p>
+
+
+<input id="iNombre" placeholder="Tu nombre (opcional)">
+<input id="iCantidad" type="number" placeholder="Cantidad €">
+
+
+<div class="quick-amounts">
+<button onclick="setAmount(10)">10€</button>
+<button onclick="setAmount(25)">25€</button>
+<button onclick="setAmount(50)">50€</button>
+</div>
+
+
+<button onclick="confirmar()" class="hero-cta">Contribuir</button>
+</div>
+
+
+<div class="thanks" id="thanksView">
+<h3 id="tTitle"></h3>
+
+
+<p>
+Tu aportación nos acerca un poco más a esta aventura 💛<br>
+Solo falta enviar el Bizum:
+</p>
+
+
+<div class="bizum">
+Héctor<br>
+663 641 410<br><br>
+<strong id="tAmount"></strong>
+</div>
+
+
+<button onclick="finalizar()">Volver</button>
+</div>
+
+
+</div>
+</div>
+
+
+<script>
+
+
+const ITEMS=[
+{id:'1',name:'Ramen en Japón 🍜',price:100},
+{id:'2',name:'Templo en China 🏯',price:200},
+{id:'3',name:'Motos en Vietnam 🛵',price:150}
+];
+
+
+let ST=JSON.parse(localStorage.getItem('boda')||'{}');
+
+
+function save(){localStorage.setItem('boda',JSON.stringify(ST));}
+
+
+function render(){
+const main=document.getElementById('main');
+main.innerHTML='';
+
+
+ITEMS.forEach(i=>{
+const r=ST[i.id]||0;
+const p=Math.min((r/i.price)*100,100);
+
+
+const mood=p===100?'🎉 Completo':p>70?'🔥 Casi listo':'Disponible';
+
+
+main.innerHTML+=`
+<div class="item-card">
+<div class="item-emoji">🎁</div>
+<div style="flex:1">
+<div class="item-name">${i.name}</div>
+<div class="item-desc">${mood}</div>
+
+
+<div class="i-track">
+<div class="i-fill" style="width:${p}%"></div>
+</div>
+
+
+<div class="item-meta">
+<span>${r}€ / ${i.price}€</span>
+<span>${Math.round(p)}%</span>
+</div>
+</div>
+
+
+<button class="btn-apoyar" onclick="openModal('${i.id}')">
+Contribuir
+</button>
+</div>
+`;
+});
+}
+
+
+let currentId=null;
+
+
+function openModal(id){
+currentId=id;
+const item=ITEMS.find(i=>i.id===id);
+const avail=item.price-(ST[id]||0);
+
+
+document.getElementById('mName').textContent=item.name;
+document.getElementById('mAvail').textContent=`Quedan ${avail}€`;
+
+
+document.getElementById('overlay').classList.add('open');
+}
+
+
+function setAmount(v){
+document.getElementById('iCantidad').value=v;
+}
+
+
+function confirmar(){
+const nombre=document.getElementById('iNombre').value.trim();
+const cantidad=parseFloat(document.getElementById('iCantidad').value);
+
+
+const item=ITEMS.find(i=>i.id===currentId);
+const avail=item.price-(ST[currentId]||0);
+
+
+if(!cantidad||cantidad<=0)return alert('Introduce cantidad válida');
+if(cantidad>avail)return alert('Supera el disponible');
+
+
+ST[currentId]=(ST[currentId]||0)+cantidad;
+save();
+
+
+document.getElementById('formView').style.display='none';
+document.getElementById('thanksView').classList.add('show');
+
+
+document.getElementById('tTitle').textContent=
+nombre?`¡Gracias, ${nombre}! 🎉`:`¡Gracias por formar parte del viaje! 🌍`;
+
+
+document.getElementById('tAmount').textContent=cantidad+'€';
+}
+
+
+function finalizar(){
+document.getElementById('overlay').classList.remove('open');
+document.getElementById('formView').style.display='block';
+document.getElementById('thanksView').classList.remove('show');
+render();
+}
+
+
+function scrollToItems(){
+document.getElementById('main').scrollIntoView({behavior:'smooth'});
+}
+
+
+render();
+
+
+</script>
+
+
+</body>
+</html>

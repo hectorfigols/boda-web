@@ -6,659 +6,161 @@
 <title>Héctor & Anna — Love World Tour</title>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <style>
-/* ════════════════════════════════════════
-   RESET & TOKENS
-════════════════════════════════════════ */
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-
-
-:root {
-  --sage:     #4e7e6e;
-  --sage-d:   #345c4e;
-  --sage-l:   #a8ccc0;
-  --teal:     #76c4ba;
-  --teal-l:   #c0e4df;
-  --lav:      #8fa8cc;
-  --lav-l:    #ccdaee;
-  --sand:     #d0b28a;
-  --sand-l:   #f0e6d2;
-  --sand-ll:  #faf5ec;
-  --blush:    #e8c8b0;
-  --ink:      #2a3830;
-  --muted:    #728880;
-  --border:   #d8e8e0;
-  --paper:    #fcf9f3;
-  --paper2:   #f7f2e8;
-}
-
-
-/* ════════════════════════════════════════
-   PAPER BODY  — warm grain
-════════════════════════════════════════ */
-body {
-  font-family: 'Lora', serif;
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 15px;
-  line-height: 1.6;
-  min-height: 100vh;
-  position: relative;
-}
-/* Paper grain overlay */
-body::before {
-  content: '';
-  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-  opacity: .028;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 200px;
-}
-
-
-/* ════════════════════════════════════════
-   LANGUAGE SWITCHER  — top strip
-════════════════════════════════════════ */
-.lang-strip {
-  background: var(--paper2);
-  border-bottom: 1px solid var(--border);
-  padding: 7px 18px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 6px;
-  position: relative;
-  z-index: 100;
-}
-.lang-btn {
-  display: flex; align-items: center; gap: 5px;
-  font-family: 'Caveat', cursive;
-  font-size: 15px;
-  color: var(--muted);
-  background: none;
-  border: 1.5px solid transparent;
-  border-radius: 100px;
-  padding: 4px 11px 4px 8px;
-  cursor: pointer;
-  transition: border-color .2s, color .2s, background .2s;
-}
-.lang-btn .flag { font-size: 18px; line-height: 1; }
-.lang-btn.active {
-  color: var(--sage-d);
-  border-color: var(--sage-l);
-  background: rgba(168,204,192,.18);
-}
-.lang-divider {
-  width: 1px; height: 16px;
-  background: var(--border);
-}
-
-
-/* ════════════════════════════════════════
-   HERO
-════════════════════════════════════════ */
-.hero {
-  background: var(--paper);
-  text-align: center;
-  padding-bottom: 4px;
-  position: relative;
-}
-
-
-/* Skyline watercolor image */
-.hero-skyline {
-  width: 100%; display: block; position: relative;
-}
-.hero-skyline img {
-  width: 100%;
-  max-height: 290px;
-  object-fit: cover;
-  object-position: center 52%;
-  display: block;
-}
-/* Feathered fade — bottom of skyline into paper */
-.hero-skyline::after {
-  content: '';
-  position: absolute; bottom: -1px; left: 0; right: 0; height: 100px;
-  background: linear-gradient(to bottom,
-    transparent 0%,
-    rgba(252,249,243,.6) 55%,
-    var(--paper) 100%);
-  pointer-events: none;
-}
-
-
-/* Soft watercolor halo behind hero text */
-.hero-halo {
-  position: absolute;
-  width: 340px; height: 180px;
-  left: 50%; transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center,
-    rgba(118,196,186,.14) 0%,
-    rgba(143,168,204,.10) 40%,
-    transparent 72%);
-  pointer-events: none;
-}
-
-
-.hero-body {
-  padding: 10px 28px 30px;
-  position: relative;
-}
-
-
-.hero-eyebrow {
-  font-family: 'Caveat', cursive;
-  font-size: 18px;
-  color: var(--muted);
-  letter-spacing: .03em;
-  margin-bottom: 5px;
-}
-
-
-.hero-sub {
-  font-family: 'Lora', serif;
-  font-size: 14.5px;
-  font-style: italic;
-  color: var(--muted);
-  line-height: 1.95;
-  margin-bottom: 24px;
-  max-width: 310px;
-  margin-left: auto; margin-right: auto;
-}
-/* Painted underline on key phrase */
-.hero-sub mark {
-  background: none;
-  color: var(--sage-d);
-  font-style: normal;
-  padding-bottom: 3px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='7' viewBox='0 0 180 7'%3E%3Cpath d='M2 5 Q20 2 40 4.5 Q65 7 90 3.5 Q115 0 140 4 Q160 6.5 178 4' stroke='%234e7e6e' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center bottom 0px;
-  background-size: 100% auto;
-}
-
-
-/* Route badges — painted pills */
-.hero-route {
-  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-}
-.hero-route span {
-  font-family: 'Caveat', cursive;
-  font-size: 15px;
-  padding: 5px 15px 6px;
-  border-radius: 100px;
-  color: var(--ink);
-  background: var(--sand-l);
-  border: 1.5px solid rgba(78,126,110,.18);
-  transition: background .15s;
-}
-
-
-/* ════════════════════════════════════════
-   STICKY BAR
-════════════════════════════════════════ */
-.sticky-bar {
-  position: sticky; top: 0; z-index: 90;
-  background: rgba(252,249,243,.93);
-  backdrop-filter: blur(8px);
-  border-bottom: 1.5px solid var(--teal-l);
-  padding: 9px 16px;
-  display: flex; align-items: center; gap: 11px;
-}
-.s-block { flex-shrink: 0; }
-.s-label {
-  font-family: 'Caveat', cursive;
-  font-size: 12px; color: var(--muted);
-  display: block; margin-bottom: 1px;
-}
-.s-val {
-  font-family: 'Lora', serif; font-style: italic;
-  font-size: 19px; color: var(--sage-d); line-height: 1;
-}
-.s-val em {
-  font-size: 11px; font-style: normal;
-  font-family: 'Caveat', cursive; color: var(--muted);
-}
-.s-divider { width: 1px; height: 28px; background: var(--teal-l); flex-shrink: 0; }
-.s-mid { flex: 1; min-width: 0; text-align: center; }
-.s-pct { font-family:'Caveat',cursive; font-size:13px; color:var(--muted); margin-bottom:4px; }
-/* Watercolour progress — slightly transparent, gradient wash */
-.g-track {
-  height: 8px; background: var(--sand-l);
-  border-radius: 100px; overflow: hidden;
-  border: 1px solid rgba(78,126,110,.12);
-  position: relative;
-}
-.g-fill {
-  height: 100%;
-  background: linear-gradient(90deg,
-    rgba(143,168,204,.85) 0%,
-    rgba(118,196,186,.85) 45%,
-    rgba(78,126,110,.80) 100%);
-  border-radius: 100px;
-  transition: width .8s cubic-bezier(.4,0,.2,1);
-}
-
-
-/* ════════════════════════════════════════
-   WATERCOLOR BLOB  decorations
-   (SVG inline blobs used as section separators)
-════════════════════════════════════════ */
-.wc-sep {
-  display: block; width: 100%;
-  height: 28px; margin-bottom: -2px;
-  overflow: hidden; line-height: 0;
-}
-.wc-sep svg { display: block; width: 100%; height: 100%; }
-
-
-/* ════════════════════════════════════════
-   COUNTRY SECTIONS
-════════════════════════════════════════ */
-.section-wrap { margin-bottom: 2px; }
-
-
-.country-header {
-  padding: 30px 22px 34px;
-  position: relative; overflow: hidden;
-}
-.ch-bg {
-  position: absolute; inset: 0;
-  /* Each country gets its own class */
-}
-/* Wet-paint drip edge at bottom — pure CSS clip path */
-.country-header::after {
-  content: '';
-  position: absolute; bottom: -1px; left: 0; right: 0; height: 22px;
-  background: var(--paper);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 22' preserveAspectRatio='none'%3E%3Cpath d='M0,10 Q20,3 40,11 Q55,17 70,9 Q88,1 108,11 Q125,19 145,8 Q165,0 185,10 Q202,18 222,9 Q240,2 260,11 Q278,18 298,8 Q318,0 338,10 Q355,18 375,9 Q393,2 413,11 Q430,18 450,8 Q468,1 488,10 Q505,17 525,9 Q542,3 560,11 Q575,17 600,10 L600,22 L0,22 Z' fill='%23fcf9f3'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 22' preserveAspectRatio='none'%3E%3Cpath d='M0,10 Q20,3 40,11 Q55,17 70,9 Q88,1 108,11 Q125,19 145,8 Q165,0 185,10 Q202,18 222,9 Q240,2 260,11 Q278,18 298,8 Q318,0 338,10 Q355,18 375,9 Q393,2 413,11 Q430,18 450,8 Q468,1 488,10 Q505,17 525,9 Q542,3 560,11 Q575,17 600,10 L600,22 L0,22 Z' fill='%23fcf9f3'/%3E%3C/svg%3E");
-  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
-  pointer-events: none; z-index: 4;
-}
-
-
-.ch-content { position: relative; z-index: 3; }
-.ch-flag { font-size: 28px; display: block; margin-bottom: 6px; }
-.ch-name {
-  font-family: 'Caveat', cursive; font-size: 34px; font-weight: 700;
-  color: #fff;
-  text-shadow: 0 1px 12px rgba(0,0,0,.15), 0 0 40px rgba(0,0,0,.08);
-  margin-bottom: 3px; line-height: 1;
-}
-.ch-tagline {
-  font-family: 'Lora', serif; font-size: 12.5px; font-style: italic;
-  color: rgba(255,255,255,.78);
-}
-.ch-prog-row { display:flex; align-items:center; gap:10px; margin-top:16px; }
-.ch-track {
-  flex:1; height:6px;
-  background: rgba(255,255,255,.2);
-  border-radius:100px; overflow:hidden;
-}
-.ch-fill {
-  height:100%; background:rgba(255,255,255,.78);
-  border-radius:100px; transition:width .7s ease;
-}
-.ch-pct {
-  font-family:'Caveat',cursive; font-size:15px;
-  color:rgba(255,255,255,.9); min-width:34px; text-align:right;
-}
-
-
-/* ── Country header watercolour washes ── */
-/* Each has blotchy, layered look via multi-stop gradients + pseudo blobs */
-.china-bg {
-  background:
-    radial-gradient(ellipse 60% 80% at 20% 30%, rgba(120,148,190,.9) 0%, transparent 65%),
-    radial-gradient(ellipse 70% 60% at 80% 70%, rgba(100,130,175,.85) 0%, transparent 60%),
-    linear-gradient(140deg, #8faac8 0%, #7a9ac0 50%, #9db5d4 100%);
-}
-.japan-bg {
-  background:
-    radial-gradient(ellipse 55% 70% at 25% 25%, rgba(90,162,148,.9) 0%, transparent 60%),
-    radial-gradient(ellipse 65% 55% at 75% 75%, rgba(70,148,132,.85) 0%, transparent 60%),
-    linear-gradient(140deg, #68a898 0%, #5a9488 50%, #78b4a4 100%);
-}
-.vietnam-bg {
-  background:
-    radial-gradient(ellipse 60% 75% at 30% 35%, rgba(60,120,104,.9) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 60% at 70% 65%, rgba(48,108,92,.85) 0%, transparent 60%),
-    linear-gradient(140deg, #4e8878 0%, #3d7060 50%, #5e9a88 100%);
-}
-.nz-bg {
-  background:
-    radial-gradient(ellipse 65% 70% at 30% 30%, rgba(90,190,180,.9) 0%, transparent 60%),
-    radial-gradient(ellipse 55% 65% at 70% 70%, rgba(72,178,168,.85) 0%, transparent 60%),
-    linear-gradient(140deg, #6abeb5 0%, #58b0a6 50%, #7ecebe 100%);
-}
-.general-bg {
-  background:
-    radial-gradient(ellipse 60% 70% at 25% 35%, rgba(196,168,120,.9) 0%, transparent 60%),
-    radial-gradient(ellipse 55% 60% at 72% 65%, rgba(184,152,106,.85) 0%, transparent 60%),
-    linear-gradient(140deg, #c8a870 0%, #b89460 50%, #d8bc88 100%);
-}
-
-
-/* ════════════════════════════════════════
-   ITEMS LIST
-════════════════════════════════════════ */
-.items-list {
-  background: var(--paper);
-  padding-top: 12px;
-  padding-bottom: 4px;
-}
-
-
-.item-card {
-  display: flex; align-items: center; gap: 13px;
-  padding: 15px 20px;
-  border-bottom: 1px solid rgba(168,200,188,.35);
-  position: relative;
-}
-.item-card:last-child { border-bottom: none; }
-/* Alternating subtle wash tint */
-.item-card:nth-child(odd) {
-  background: rgba(242,250,247,.6);
-}
-/* Tiny watercolour left-border accent */
-.item-card::before {
-  content: '';
-  position: absolute; left: 0; top: 20%; bottom: 20%;
-  width: 3px; border-radius: 0 3px 3px 0;
-  opacity: 0;
-  transition: opacity .2s;
-}
-.item-card:hover::before { opacity: .6; }
-
-
-.item-emoji { font-size: 24px; flex-shrink:0; width:34px; text-align:center; }
-
-
-.item-body { flex:1; min-width:0; }
-.item-name {
-  font-family: 'Lora', serif;
-  font-size: 13.5px; color: var(--ink);
-  margin-bottom: 8px; line-height: 1.3;
-}
-/* Watercolour progress track — looks like wet paint */
-.i-track {
-  height: 6px; background: var(--sand-l);
-  border-radius: 100px; overflow: hidden; margin-bottom: 5px;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
-}
-.i-fill {
-  height: 100%; border-radius: 100px;
-  transition: width .6s cubic-bezier(.4,0,.2,1);
-  opacity: .75;
-}
-.item-meta {
-  display:flex; justify-content:space-between;
-  font-family:'Caveat',cursive; font-size:13px; color:var(--muted);
-}
-.item-meta .pct { font-weight:700; }
-
-
-.item-right { flex-shrink:0; display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
-.item-price {
-  font-family:'Caveat',cursive; font-size:19px;
-  color:var(--ink); white-space:nowrap;
-}
-
-
-/* Hand-lettered button */
-.btn-apoyar {
-  padding: 6px 15px 7px;
-  border-radius: 100px;
-  border: 2px solid currentColor;
-  background: transparent;
-  font-family: 'Caveat', cursive;
-  font-size: 15px; font-weight: 700;
-  cursor: pointer; white-space: nowrap;
-  transition: background .18s, color .18s, transform .1s;
-  letter-spacing: .01em;
-}
-.btn-apoyar:hover { background: currentColor; color: #fff !important; }
-.btn-apoyar:active { transform: scale(.93); }
-
-
-.done-tag {
-  font-family:'Caveat',cursive; font-size:13px;
-  color:var(--sage-d); background:rgba(78,126,110,.12);
-  border-radius:100px; padding:4px 12px; white-space:nowrap;
-}
-
-
-/* Item fill colours */
-.china-c    { color:#7a9ec0; } .china-fi    { background:linear-gradient(90deg,rgba(143,168,204,.9),rgba(168,192,220,.8)); }
-.japan-c    { color:#4a9080; } .japan-fi    { background:linear-gradient(90deg,rgba(90,148,136,.9),rgba(118,180,164,.8)); }
-.vietnam-c  { color:#2e6e5a; } .vietnam-fi  { background:linear-gradient(90deg,rgba(62,112,96,.9),rgba(90,152,128,.8)); }
-.nz-c       { color:#3ab0a4; } .nz-fi       { background:linear-gradient(90deg,rgba(90,180,170,.9),rgba(126,210,200,.8)); }
-.general-c  { color:#b0885a; } .general-fi  { background:linear-gradient(90deg,rgba(200,168,112,.9),rgba(220,188,136,.8)); }
-
-
-/* Left border accent colours */
-.item-card.china-border::before   { background:#8fa8cc; opacity:.55; }
-.item-card.japan-border::before   { background:#5a9488; opacity:.55; }
-.item-card.vietnam-border::before { background:#3d7060; opacity:.55; }
-.item-card.nz-border::before      { background:#5ab8b0; opacity:.55; }
-.item-card.general-border::before { background:#c8a870; opacity:.55; }
-
-
-/* ════════════════════════════════════════
-   MODAL — bottom sheet
-════════════════════════════════════════ */
-.overlay {
-  position:fixed; inset:0;
-  background:rgba(30,48,40,.48);
-  z-index:200; display:flex; align-items:flex-end; justify-content:center;
-  opacity:0; pointer-events:none; transition:opacity .28s;
-}
-.overlay.open { opacity:1; pointer-events:all; }
-
-
-.modal {
-  background: var(--paper);
-  width:100%; max-width:480px;
-  border-radius:24px 24px 0 0;
-  transform:translateY(100%);
-  transition:transform .32s cubic-bezier(.4,0,.2,1);
-  max-height:93vh; overflow-y:auto; -webkit-overflow-scrolling:touch;
-  border-top: 2px solid var(--teal-l);
-}
-.overlay.open .modal { transform:translateY(0); }
-
-
-/* Watercolour splash at top of modal */
-.modal-splash {
-  height: 6px;
-  background: linear-gradient(90deg,
-    var(--lav-l) 0%, var(--teal-l) 40%, var(--sage-l) 70%, var(--sand-l) 100%);
-  border-radius: 24px 24px 0 0;
-  opacity: .7;
-}
-.modal-handle { width:38px; height:4px; background:var(--sand); border-radius:100px; margin:10px auto 0; opacity:.55; }
-
-
-.modal-header {
-  padding:14px 20px;
-  border-bottom:1px solid rgba(168,210,200,.4);
-  display:flex; align-items:center; gap:12px;
-}
-.m-emoji { font-size:28px; flex-shrink:0; }
-.m-name { font-family:'Lora',serif; font-style:italic; font-size:17px; color:var(--ink); line-height:1.3; }
-.m-country { font-family:'Caveat',cursive; font-size:13px; color:var(--muted); margin-top:2px; }
-.modal-close {
-  margin-left:auto; background:var(--sand-l); border:1.5px solid var(--border);
-  width:32px; height:32px; border-radius:50%;
-  font-size:14px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  color:var(--muted); flex-shrink:0;
-}
-
-
-.modal-body { padding:20px; }
-
-
-.avail-box {
-  background: var(--sand-ll);
-  border: 1.5px solid rgba(208,178,138,.5);
-  border-radius:16px; padding:14px 18px; margin-bottom:18px;
-  display:flex; justify-content:space-between; align-items:center;
-  /* Subtle paper texture on the box */
-  position: relative; overflow: hidden;
-}
-.avail-box::before {
-  content:'';
-  position:absolute; inset:0;
-  background: radial-gradient(ellipse at 20% 50%, rgba(118,196,186,.08) 0%, transparent 60%);
-  pointer-events:none;
-}
-.avail-lbl { font-family:'Caveat',cursive; font-size:14px; color:var(--muted); position:relative; }
-.avail-val { font-family:'Lora',serif; font-style:italic; font-size:26px; color:var(--sage-d); position:relative; }
-
-
-.err-box {
-  background:#fff5f0; border:1.5px solid rgba(220,160,130,.6);
-  border-radius:12px; padding:12px 15px;
-  font-family:'Caveat',cursive; font-size:15px; color:#8a4030;
-  margin-bottom:15px; display:none; line-height:1.6;
-}
-.err-box.show { display:block; }
-
-
-.f-field { margin-bottom:17px; }
-.f-label { display:block; font-family:'Caveat',cursive; font-size:15px; color:var(--muted); margin-bottom:7px; }
-.f-input {
-  width:100%; padding:14px 16px;
-  border:1.5px solid var(--border); border-radius:14px;
-  font-family:'Lora',serif; font-size:16px; color:var(--ink);
-  background:rgba(255,255,255,.75);
-  outline:none; transition:border-color .2s, box-shadow .2s;
-  -webkit-appearance:none;
-}
-.f-input:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(118,196,186,.15); }
-
-
-.btn-confirm {
-  width:100%; padding:16px; border:none; border-radius:100px;
-  color:#fff; font-family:'Caveat',cursive; font-size:19px; font-weight:700;
-  cursor:pointer; transition:opacity .2s, transform .1s;
-  letter-spacing:.02em;
-  position:relative; overflow:hidden;
-}
-/* Painted shimmer on confirm button */
-.btn-confirm::after {
-  content:'';
-  position:absolute; inset:0;
-  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);
-  transform:translateX(-100%);
-}
-.btn-confirm:active { transform:scale(.97); opacity:.85; }
-
-
-/* Thanks view */
-.thanks { display:none; padding:30px 20px 44px; text-align:center; }
-.thanks.show { display:block; }
-.thanks-ico { font-size:54px; margin-bottom:12px; }
-.thanks-title { font-family:'Caveat',cursive; font-size:30px; font-weight:700; color:var(--sage-d); margin-bottom:8px; line-height:1.2; }
-.thanks-desc { font-family:'Lora',serif; font-style:italic; font-size:14px; color:var(--muted); margin-bottom:26px; line-height:1.9; }
-
-
-/* Dark Bizum card with watercolour accent */
-.bizum-card {
-  background:var(--ink); border-radius:20px; padding:24px;
-  margin-bottom:20px; text-align:left;
-  position:relative; overflow:hidden;
-}
-.bizum-card::before {
-  content:'';
-  position:absolute; top:-40px; right:-40px; width:180px; height:180px;
-  background:radial-gradient(circle, rgba(118,196,186,.16) 0%, transparent 70%);
-  pointer-events:none;
-}
-.bizum-card::after {
-  content:'';
-  position:absolute; bottom:-30px; left:-20px; width:130px; height:130px;
-  background:radial-gradient(circle, rgba(143,168,204,.12) 0%, transparent 70%);
-  pointer-events:none;
-}
-.biz-lbl {
-  font-family:'Caveat',cursive; font-size:13px; color:rgba(255,255,255,.38);
-  letter-spacing:.08em; margin-bottom:2px; display:block; position:relative;
-}
-.biz-name { font-family:'Lora',serif; font-style:italic; font-size:18px; color:rgba(255,255,255,.9); margin-bottom:2px; position:relative; }
-.biz-phone {
-  font-family:'Caveat',cursive; font-size:32px; font-weight:700;
-  color:var(--teal); letter-spacing:.06em; margin-bottom:20px; position:relative;
-}
-.biz-amount-lbl {
-  font-family:'Caveat',cursive; font-size:13px; color:rgba(255,255,255,.38);
-  letter-spacing:.08em; margin-bottom:2px; display:block; position:relative;
-}
-.biz-amount { font-family:'Lora',serif; font-style:italic; font-size:42px; color:var(--sand); position:relative; }
-
-
-.btn-back {
-  width:100%; padding:15px;
-  border:1.5px solid var(--border); border-radius:100px;
-  background:transparent; font-family:'Caveat',cursive;
-  font-size:17px; font-weight:600; color:var(--sage-d); cursor:pointer;
-  transition:background .18s;
-}
-.btn-back:hover { background:var(--sand-l); }
-
-
-/* ════════════════════════════════════════
-   FOOTER
-════════════════════════════════════════ */
-.footer {
-  padding:40px 24px 54px; text-align:center;
-  background:var(--paper2);
-  border-top:2px solid var(--sand-l);
-  color:var(--muted); position:relative; overflow:hidden;
-}
-/* Watercolour blobs in footer */
-.footer::before {
-  content:'';
-  position:absolute; top:-30px; left:10%; width:200px; height:100px;
-  background:radial-gradient(ellipse, rgba(118,196,186,.12) 0%, transparent 70%);
-}
-.footer::after {
-  content:'';
-  position:absolute; top:-20px; right:8%; width:150px; height:80px;
-  background:radial-gradient(ellipse, rgba(143,168,204,.10) 0%, transparent 70%);
-}
-.footer-title {
-  font-family:'Caveat',cursive; font-size:28px; font-weight:700;
-  color:var(--sage-d); margin-bottom:8px;
-}
-.footer-route {
-  font-size:20px; letter-spacing:.08em;
-  margin-bottom:10px;
-}
-.footer-sub {
-  font-family:'Lora',serif; font-style:italic;
-  font-size:13.5px; line-height:2; color:var(--muted);
-}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --sage:#4e7e6e;--sage-d:#345c4e;--sage-l:#a8ccc0;
+  --teal:#76c4ba;--teal-l:#c0e4df;
+  --lav:#8fa8cc;--lav-l:#ccdaee;
+  --sand:#d0b28a;--sand-l:#f0e6d2;--sand-ll:#faf5ec;
+  --ink:#2a3830;--muted:#728880;--border:#d8e8e0;
+  --paper:#fcf9f3;--paper2:#f7f2e8;
+}
+body{font-family:'Lora',serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.6;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+
+
+/* LANG STRIP */
+.lang-strip{background:var(--paper2);border-bottom:1px solid var(--border);padding:8px 16px;display:flex;justify-content:flex-end;align-items:center;gap:10px;position:relative;z-index:100}
+.lang-btn{background:none;border:2.5px solid transparent;border-radius:50%;padding:2px;cursor:pointer;transition:border-color .2s,transform .15s;display:flex;align-items:center;justify-content:center}
+.lang-btn img{width:34px;height:34px;border-radius:50%;object-fit:cover;display:block;opacity:.5;transition:opacity .2s}
+.lang-btn.active{border-color:var(--sage-l)}
+.lang-btn.active img{opacity:1}
+.lang-btn:hover img{opacity:.8}
+.lang-btn:active{transform:scale(.9)}
+
+
+/* HERO */
+.hero{background:var(--paper);text-align:center;padding-bottom:4px;position:relative}
+.hero-skyline{width:100%;display:block;position:relative}
+.hero-skyline img{width:100%;max-height:220px;object-fit:cover;object-position:center 45%;display:block}
+.hero-skyline::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:90px;background:linear-gradient(to bottom,transparent 0%,rgba(252,249,243,.75) 55%,var(--paper) 100%);pointer-events:none}
+.hero-halo{position:absolute;width:340px;height:160px;left:50%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse at center,rgba(118,196,186,.13) 0%,rgba(143,168,204,.09) 40%,transparent 72%);pointer-events:none}
+.hero-body{padding:8px 28px 30px;position:relative}
+.hero-eyebrow{font-family:'Caveat',cursive;font-size:18px;color:var(--muted);letter-spacing:.03em;margin-bottom:5px}
+.hero-sub{font-family:'Lora',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.95;margin-bottom:24px;max-width:310px;margin-left:auto;margin-right:auto}
+.hero-sub mark{background:none;color:var(--sage-d);font-style:normal;padding-bottom:3px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='7' viewBox='0 0 180 7'%3E%3Cpath d='M2 5 Q20 2 40 4.5 Q65 7 90 3.5 Q115 0 140 4 Q160 6.5 178 4' stroke='%234e7e6e' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center bottom 0;background-size:100% auto}
+.hero-route{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.hero-route span{font-family:'Caveat',cursive;font-size:15px;padding:5px 15px 6px;border-radius:100px;color:var(--ink);background:var(--sand-l);border:1.5px solid rgba(78,126,110,.18)}
+
+
+/* STICKY BAR */
+.sticky-bar{position:sticky;top:0;z-index:90;background:rgba(252,249,243,.93);backdrop-filter:blur(8px);border-bottom:1.5px solid var(--teal-l);padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:14px}
+.s-label{font-family:'Caveat',cursive;font-size:13px;color:var(--muted);display:block;margin-bottom:2px;text-align:center}
+.s-val{font-family:'Lora',serif;font-style:italic;font-size:22px;color:var(--sage-d);line-height:1;text-align:center}
+.s-val em{font-size:13px;font-style:normal;font-family:'Caveat',cursive;color:var(--muted)}
+.s-heart{font-size:20px;color:var(--sage-l)}
+
+
+/* COUNTRY HEADER */
+.section-wrap{margin-bottom:2px}
+.country-header{padding:28px 22px 44px;position:relative;overflow:hidden}
+.ch-bg{position:absolute;inset:0}
+.country-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:28px;background:var(--paper);-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 28' preserveAspectRatio='none'%3E%3Cpath d='M0,14 C150,4 300,24 450,12 C520,7 570,16 600,14 L600,28 L0,28 Z' fill='white'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 28' preserveAspectRatio='none'%3E%3Cpath d='M0,14 C150,4 300,24 450,12 C520,7 570,16 600,14 L600,28 L0,28 Z' fill='white'/%3E%3C/svg%3E");-webkit-mask-size:100% 100%;mask-size:100% 100%;pointer-events:none;z-index:4}
+.ch-fade{position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(to bottom,transparent 0%,rgba(252,249,243,.3) 100%);z-index:3;pointer-events:none}
+.ch-content{position:relative;z-index:3}
+.ch-flag{font-size:28px;display:block;margin-bottom:6px}
+.ch-name{font-family:'Caveat',cursive;font-size:34px;font-weight:700;color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.18),0 0 40px rgba(0,0,0,.1);margin-bottom:3px;line-height:1}
+.ch-tagline{font-family:'Lora',serif;font-size:12.5px;font-style:italic;color:rgba(255,255,255,.76)}
+.ch-raised{margin-top:12px;font-family:'Caveat',cursive;font-size:15px;color:rgba(255,255,255,.85)}
+
+
+/* Organic watercolour washes — layered radial blobs */
+.china-bg{background:radial-gradient(ellipse 55% 90% at 8% 20%,rgba(110,138,185,.72) 0%,transparent 60%),radial-gradient(ellipse 45% 70% at 85% 75%,rgba(90,118,168,.65) 0%,transparent 55%),radial-gradient(ellipse 70% 50% at 50% 110%,rgba(140,165,200,.5) 0%,transparent 55%),linear-gradient(128deg,#8faac4 0%,#7a98be 40%,#9db2d0 70%,#a8bed8 100%)}
+.japan-bg{background:radial-gradient(ellipse 55% 85% at 10% 15%,rgba(72,148,132,.72) 0%,transparent 60%),radial-gradient(ellipse 45% 65% at 88% 80%,rgba(55,132,115,.65) 0%,transparent 55%),radial-gradient(ellipse 65% 50% at 50% 110%,rgba(100,168,150,.5) 0%,transparent 55%),linear-gradient(128deg,#62a090 0%,#529080 40%,#70aa98 70%,#80bca8 100%)}
+.vietnam-bg{background:radial-gradient(ellipse 50% 80% at 12% 18%,rgba(48,106,90,.72) 0%,transparent 60%),radial-gradient(ellipse 45% 65% at 82% 78%,rgba(38,94,78,.65) 0%,transparent 55%),radial-gradient(ellipse 60% 50% at 50% 115%,rgba(72,128,108,.5) 0%,transparent 55%),linear-gradient(128deg,#427868 0%,#346658 40%,#508878 70%,#609888 100%)}
+.nz-bg{background:radial-gradient(ellipse 55% 85% at 8% 20%,rgba(72,178,166,.72) 0%,transparent 60%),radial-gradient(ellipse 45% 68% at 85% 78%,rgba(58,164,152,.65) 0%,transparent 55%),radial-gradient(ellipse 65% 50% at 50% 115%,rgba(98,195,182,.5) 0%,transparent 55%),linear-gradient(128deg,#5ab4aa 0%,#48a89e 40%,#68beb4 70%,#78cec4 100%)}
+.general-bg{background:radial-gradient(ellipse 55% 80% at 10% 18%,rgba(188,155,100,.72) 0%,transparent 60%),radial-gradient(ellipse 45% 65% at 84% 76%,rgba(172,138,86,.65) 0%,transparent 55%),radial-gradient(ellipse 65% 50% at 50% 115%,rgba(208,175,120,.5) 0%,transparent 55%),linear-gradient(128deg,#bea070 0%,#aa8c5c 40%,#c8ac78 70%,#d8bc8c 100%)}
+
+
+/* ITEMS LIST */
+.items-list{background:var(--paper);padding-top:6px;padding-bottom:4px}
+.items-list::before{content:'';display:block;height:16px;background:linear-gradient(to bottom,rgba(200,225,218,.16) 0%,transparent 100%);pointer-events:none}
+.item-card{display:flex;align-items:center;gap:13px;padding:14px 20px;border-bottom:1px solid rgba(168,200,188,.3);position:relative}
+.item-card:last-child{border-bottom:none}
+.item-card:nth-child(odd){background:rgba(242,250,247,.5)}
+.item-emoji{font-size:22px;flex-shrink:0;width:32px;text-align:center}
+.item-body{flex:1;min-width:0}
+.item-name{font-family:'Lora',serif;font-size:13.5px;color:var(--ink);margin-bottom:8px;line-height:1.3}
+.i-track{height:7px;background:var(--sand-l);border-radius:100px;overflow:hidden;margin-bottom:5px;box-shadow:inset 0 1px 2px rgba(0,0,0,.05)}
+.i-fill{height:100%;border-radius:100px;transition:width .7s cubic-bezier(.4,0,.2,1),background .7s ease}
+/* Intensity levels — rainfall colour scale */
+.int-0{background:transparent}
+.int-1{background:linear-gradient(90deg,rgba(192,228,224,.65),rgba(208,238,234,.6))}
+.int-2{background:linear-gradient(90deg,rgba(118,196,186,.75),rgba(148,216,206,.7))}
+.int-3{background:linear-gradient(90deg,rgba(78,158,142,.82),rgba(108,184,168,.76))}
+.int-4{background:linear-gradient(90deg,rgba(52,122,104,.88),rgba(78,152,132,.82))}
+.int-5{background:linear-gradient(90deg,rgba(28,78,62,.93),rgba(48,108,88,.88))}
+.item-meta{display:flex;justify-content:flex-start;font-family:'Caveat',cursive;font-size:13px;color:var(--muted)}
+.item-meta .raised-amt{font-weight:700}
+.item-right{flex-shrink:0}
+.btn-apoyar{padding:6px 16px 7px;border-radius:100px;border:2px solid currentColor;background:transparent;font-family:'Caveat',cursive;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .18s,color .18s,transform .1s}
+.btn-apoyar:hover{background:currentColor;color:#fff !important}
+.btn-apoyar:active{transform:scale(.93)}
+.china-c{color:#7a9ec0}.japan-c{color:#4a9080}.vietnam-c{color:#2e6e5a}.nz-c{color:#3ab0a4}.general-c{color:#b0885a}
+
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(30,48,40,.48);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .28s}
+.overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--paper);width:100%;max-width:480px;border-radius:24px 24px 0 0;transform:translateY(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);max-height:93vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-top:2px solid var(--teal-l)}
+.overlay.open .modal{transform:translateY(0)}
+.modal-splash{height:6px;background:linear-gradient(90deg,var(--lav-l) 0%,var(--teal-l) 40%,var(--sage-l) 70%,var(--sand-l) 100%);border-radius:24px 24px 0 0;opacity:.7}
+.modal-handle{width:38px;height:4px;background:var(--sand);border-radius:100px;margin:10px auto 0;opacity:.55}
+.modal-header{padding:14px 20px;border-bottom:1px solid rgba(168,210,200,.4);display:flex;align-items:center;gap:12px}
+.m-emoji{font-size:28px;flex-shrink:0}
+.m-name{font-family:'Lora',serif;font-style:italic;font-size:17px;color:var(--ink);line-height:1.3}
+.m-country{font-family:'Caveat',cursive;font-size:13px;color:var(--muted);margin-top:2px}
+.modal-close{margin-left:auto;background:var(--sand-l);border:1.5px solid var(--border);width:32px;height:32px;border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0}
+.modal-body{padding:20px}
+.item-total-box{background:var(--sand-ll);border:1.5px solid rgba(208,178,138,.45);border-radius:16px;padding:13px 18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center}
+.item-total-lbl{font-family:'Caveat',cursive;font-size:14px;color:var(--muted)}
+.item-total-val{font-family:'Lora',serif;font-style:italic;font-size:24px;color:var(--sage-d)}
+.err-box{background:#fff5f0;border:1.5px solid rgba(220,160,130,.6);border-radius:12px;padding:12px 15px;font-family:'Caveat',cursive;font-size:15px;color:#8a4030;margin-bottom:15px;display:none;line-height:1.6}
+.err-box.show{display:block}
+.f-field{margin-bottom:17px}
+.f-label{display:block;font-family:'Caveat',cursive;font-size:15px;color:var(--muted);margin-bottom:7px}
+.f-input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:14px;font-family:'Lora',serif;font-size:16px;color:var(--ink);background:rgba(255,255,255,.75);outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none}
+.f-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(118,196,186,.15)}
+.btn-confirm{width:100%;padding:16px;border:none;border-radius:100px;color:#fff;font-family:'Caveat',cursive;font-size:19px;font-weight:700;cursor:pointer;transition:opacity .2s,transform .1s;letter-spacing:.02em}
+.btn-confirm:active{transform:scale(.97);opacity:.85}
+.thanks{display:none;padding:30px 20px 44px;text-align:center}
+.thanks.show{display:block}
+.thanks-ico{font-size:54px;margin-bottom:12px}
+.thanks-title{font-family:'Caveat',cursive;font-size:30px;font-weight:700;color:var(--sage-d);margin-bottom:8px;line-height:1.2}
+.thanks-desc{font-family:'Lora',serif;font-style:italic;font-size:14px;color:var(--muted);margin-bottom:26px;line-height:1.9}
+.bizum-card{background:var(--ink);border-radius:20px;padding:24px;margin-bottom:20px;text-align:left;position:relative;overflow:hidden}
+.bizum-card::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(118,196,186,.16) 0%,transparent 70%);pointer-events:none}
+.biz-lbl{font-family:'Caveat',cursive;font-size:13px;color:rgba(255,255,255,.38);letter-spacing:.08em;margin-bottom:2px;display:block;position:relative}
+.biz-name{font-family:'Lora',serif;font-style:italic;font-size:18px;color:rgba(255,255,255,.9);margin-bottom:2px;position:relative}
+.biz-phone{font-family:'Caveat',cursive;font-size:32px;font-weight:700;color:var(--teal);letter-spacing:.06em;margin-bottom:20px;position:relative}
+.biz-amount-lbl{font-family:'Caveat',cursive;font-size:13px;color:rgba(255,255,255,.38);letter-spacing:.08em;margin-bottom:2px;display:block;position:relative}
+.biz-amount{font-family:'Lora',serif;font-style:italic;font-size:42px;color:var(--sand);position:relative}
+.btn-back{width:100%;padding:15px;border:1.5px solid var(--border);border-radius:100px;background:transparent;font-family:'Caveat',cursive;font-size:17px;font-weight:600;color:var(--sage-d);cursor:pointer;transition:background .18s}
+.btn-back:hover{background:var(--sand-l)}
+
+
+/* FOOTER */
+.footer{padding:40px 24px 54px;text-align:center;background:var(--paper2);border-top:2px solid var(--sand-l);color:var(--muted);position:relative;overflow:hidden}
+.footer::before{content:'';position:absolute;top:-30px;left:10%;width:200px;height:100px;background:radial-gradient(ellipse,rgba(118,196,186,.12) 0%,transparent 70%)}
+.footer::after{content:'';position:absolute;top:-20px;right:8%;width:150px;height:80px;background:radial-gradient(ellipse,rgba(143,168,204,.10) 0%,transparent 70%)}
+.footer-title{font-family:'Caveat',cursive;font-size:28px;font-weight:700;color:var(--sage-d);margin-bottom:8px}
+.footer-route{font-size:20px;letter-spacing:.08em;margin-bottom:10px}
+.footer-sub{font-family:'Lora',serif;font-style:italic;font-size:13.5px;line-height:2;color:var(--muted)}
 </style>
 </head>
 <body>
 
 
-<!-- ══ LANGUAGE STRIP ══ -->
 <div class="lang-strip">
-  <button class="lang-btn active" id="btn-ca" onclick="setLang('ca')">
-    <span class="flag">🏴󠁥󠁳󠁣󠁴󠁿</span> Català
+  <button class="lang-btn active" id="btn-ca" onclick="setLang('ca')" title="Català">
+    <img src="flag-ca.jpg" alt="Català">
   </button>
-  <div class="lang-divider"></div>
-  <button class="lang-btn" id="btn-es" onclick="setLang('es')">
-    <span class="flag">🇪🇸</span> Castellano
+  <button class="lang-btn" id="btn-es" onclick="setLang('es')" title="Castellano">
+    <img src="flag-es.jpg" alt="Castellano">
   </button>
 </div>
 
 
-<!-- ══ HERO ══ -->
 <header class="hero">
   <div class="hero-skyline">
     <img src="invitacion.jpg" alt="Skyline acuarela Barcelona & Carlet">
@@ -668,40 +170,31 @@ body::before {
     <p class="hero-eyebrow">✈ Héctor & Anna — Love World Tour</p>
     <p class="hero-sub" id="hero-sub-text"></p>
     <div class="hero-route">
-      <span>🇨🇳 China</span>
-      <span>🇯🇵 Japó / Japón</span>
-      <span>🇻🇳 Vietnam</span>
-      <span>🇳🇿 Nova Zelanda</span>
-      <span>🌐 <span data-i="generalLabel"></span></span>
+      <span>🇨🇳</span>
+      <span>🇯🇵</span>
+      <span>🇻🇳</span>
+      <span>🇳🇿</span>
+      <span>🌐</span>
     </div>
   </div>
 </header>
 
 
-<!-- ══ STICKY BAR ══ -->
 <div class="sticky-bar">
-  <div class="s-block">
-    <span class="s-label" data-i="raised"></span>
+  <div>
+    <span class="s-label" data-i="raised">Recaptat</span>
     <div class="s-val" id="gRec">0 <em>€</em></div>
   </div>
-  <div class="s-divider"></div>
-  <div class="s-mid">
-    <div class="s-pct" id="gPct">0%</div>
-    <div class="g-track"><div class="g-fill" id="gFill" style="width:0%"></div></div>
-  </div>
-  <div class="s-divider"></div>
-  <div class="s-block" style="text-align:right">
-    <span class="s-label" data-i="goal"></span>
-    <div class="s-val" id="gObj">— <em>€</em></div>
+  <div class="s-heart">♡</div>
+  <div>
+    <span class="s-label" data-i="stickyDesc">entre tots</span>
   </div>
 </div>
 
 
-<!-- ══ MAIN ══ -->
 <main id="main"></main>
 
 
-<!-- ══ FOOTER ══ -->
 <footer class="footer">
   <div class="footer-title">Héctor & Anna ❤️</div>
   <div class="footer-route">🇨🇳 ✈ 🇯🇵 ✈ 🇻🇳 ✈ 🇳🇿</div>
@@ -709,13 +202,10 @@ body::before {
 </footer>
 
 
-<!-- ══ MODAL ══ -->
 <div class="overlay" id="overlay">
   <div class="modal">
     <div class="modal-splash"></div>
     <div class="modal-handle"></div>
-
-
     <div id="formView">
       <div class="modal-header">
         <span class="m-emoji" id="mEmoji"></span>
@@ -726,33 +216,31 @@ body::before {
         <button class="modal-close" onclick="closeModal()">✕</button>
       </div>
       <div class="modal-body">
-        <div class="avail-box">
-          <span class="avail-lbl" data-i="available"></span>
-          <span class="avail-val" id="mAvail"></span>
+        <div class="item-total-box">
+          <span class="item-total-lbl" data-i="soFar">Recolzat fins ara</span>
+          <span class="item-total-val" id="mSoFar">0 €</span>
         </div>
         <div class="err-box" id="errBox"></div>
         <div class="f-field">
-          <label class="f-label" data-i="yourName"></label>
+          <label class="f-label" data-i="yourName">✏️ El teu nom</label>
           <input class="f-input" type="text" id="iNombre" autocomplete="given-name">
         </div>
         <div class="f-field">
-          <label class="f-label" data-i="amount"></label>
+          <label class="f-label" data-i="amount">💛 Quantitat a aportar (€)</label>
           <input class="f-input" type="number" id="iCantidad" placeholder="0" min="1" inputmode="numeric">
         </div>
         <button class="btn-confirm" id="btnConfirm" onclick="confirmar()"></button>
       </div>
     </div>
-
-
     <div class="thanks" id="thanksView">
       <div class="thanks-ico">🌿</div>
       <div class="thanks-title" id="tTitle"></div>
       <p class="thanks-desc" data-i="sendBizum"></p>
       <div class="bizum-card">
-        <span class="biz-lbl" data-i="bizumTo"></span>
+        <span class="biz-lbl" data-i="bizumTo">📱 Enviar Bizum a</span>
         <div class="biz-name">Héctor</div>
         <div class="biz-phone">663 641 410</div>
-        <span class="biz-amount-lbl" data-i="amountTo"></span>
+        <span class="biz-amount-lbl" data-i="amountTo">Import a enviar</span>
         <div class="biz-amount" id="tAmount"></div>
       </div>
       <button class="btn-back" onclick="finalizar()" data-i="backBtn"></button>
@@ -761,343 +249,244 @@ body::before {
 </div>
 
 
-<!-- ══ SCRIPT ══ -->
 <script>
-/* ──────────────────────────────
-   TRANSLATIONS
-────────────────────────────── */
-const T = {
-  ca: {
-    heroSub:      '¡Ens casem i ens anem al món! 🌍\nSi t\'apeteix sumar-te a l\'aventura\namb un petit detall, aquí tens idees del viatge.\nAixò és <mark>completament voluntari</mark>\n— el més important ja ho tenim: vosaltres. ❤️',
-    generalLabel: 'Generals',
-    raised:       'Recaptat',
-    goal:         'Objectiu',
-    available:    'Disponible per a aquest item',
-    yourName:     '✏️ El teu nom',
-    yourNamePh:   'Com et dius?',
-    amount:       '💛 Quantitat a aportar (€)',
-    confirmBtn:   'Confirmar aportació ✓',
-    errName:      'Posa el teu nom perquè l\'Héctor i l\'Anna sàpiguen a qui agrair-ho! 😊',
-    errAmount:    'Introdueix una quantitat major que 0 €.',
-    errOver:      (name, avail) => `Per a "${name}" només falten ${avail} €. Contribueix la resta en un altre item! 🙏`,
-    thanks:       name => `Gràcies, ${name}! 🎉`,
-    sendBizum:    'Ara envia el Bizum per completar la teva aportació.\n¡Mil gràcies de tot cor!',
-    bizumTo:      '📱 Enviar Bizum a',
-    amountTo:     'Import a enviar',
-    backBtn:      '← Tornar al llistat',
-    footerSub:    'Gràcies per ser part d\'aquesta gran aventura',
-    complete:     '✅ Complet',
-    support:      'Recolzar ♡',
-    ofText:       'de',
-    countryObj:   'Objectiu:',
+const T={
+  ca:{
+    heroSub:'Ens casem i ens anem al món! 🌍\nSi vols tenir un detall amb nosaltres,\ntria qualsevol item del viatge.\n<mark>Completament voluntari</mark> — gràcies per ser aquí. ❤️',
+    raised:'Recaptat',stickyDesc:'entre tots',soFar:'Recolzat fins ara',
+    yourName:'✏️ El teu nom',yourNamePh:'Com et dius?',
+    amount:'💛 Quantitat a aportar (€)',confirmBtn:'Confirmar aportació ✓',
+    errName:'Posa el teu nom perquè l\'Héctor i l\'Anna sàpiguen a qui agrair-ho! 😊',
+    errAmount:'Introdueix una quantitat major que 0 €.',
+    thanks:n=>`Gràcies, ${n}! 🎉`,
+    sendBizum:'Ara envia el Bizum per completar la teva aportació.\nMil gràcies de tot cor!',
+    bizumTo:'📱 Enviar Bizum a',amountTo:'Import a enviar',
+    backBtn:'← Tornar al llistat',footerSub:'Gràcies per ser part d\'aquesta gran aventura',
+    support:'Recolzar ♡',
+    chinaLabel:'Xina',japanLabel:'Japó',nzLabel:'Nova Zelanda',generalLabel:'Generals',
+    raisedFor:'♡ Recolzat:',
   },
-  es: {
-    heroSub:      '¡Nos casamos y nos vamos al mundo! 🌍\nSi te apetece sumarte a la aventura\ncon un pequeño detalle, aquí tienes ideas del viaje.\nEsto es <mark>completamente voluntario</mark>\n— lo más importante ya lo tenemos: vosotros. ❤️',
-    generalLabel: 'Generales',
-    raised:       'Recaudado',
-    goal:         'Objetivo',
-    available:    'Disponible para este item',
-    yourName:     '✏️ Tu nombre',
-    yourNamePh:   '¿Cómo te llamas?',
-    amount:       '💛 Cantidad a aportar (€)',
-    confirmBtn:   'Confirmar aportación ✓',
-    errName:      '¡Pon tu nombre para que Héctor y Anna sepan a quién agradecer! 😊',
-    errAmount:    'Introduce una cantidad mayor que 0 €.',
-    errOver:      (name, avail) => `Para "${name}" solo faltan ${avail} €. ¡Contribuye el resto en otro item! 🙏`,
-    thanks:       name => `¡Gracias, ${name}! 🎉`,
-    sendBizum:    'Ahora envía el Bizum para completar tu aportación.\n¡Mil gracias de corazón!',
-    bizumTo:      '📱 Enviar Bizum a',
-    amountTo:     'Importe a enviar',
-    backBtn:      '← Volver al listado',
-    footerSub:    'Gracias por ser parte de esta gran aventura',
-    complete:     '✅ Complet',
-    support:      'Apoyar ♡',
-    ofText:       'de',
-    countryObj:   'Objetivo:',
+  es:{
+    heroSub:'¡Nos casamos y nos vamos al mundo! 🌍\nSi quieres tener un detalle con nosotros,\nelige cualquier item del viaje.\n<mark>Completamente voluntario</mark> — gracias por estar aquí. ❤️',
+    raised:'Recaudado',stickyDesc:'entre todos',soFar:'Apoyado hasta ahora',
+    yourName:'✏️ Tu nombre',yourNamePh:'¿Cómo te llamas?',
+    amount:'💛 Cantidad a aportar (€)',confirmBtn:'Confirmar aportación ✓',
+    errName:'¡Pon tu nombre para que Héctor y Anna sepan a quién agradecer! 😊',
+    errAmount:'Introduce una cantidad mayor que 0 €.',
+    thanks:n=>`¡Gracias, ${n}! 🎉`,
+    sendBizum:'Ahora envía el Bizum para completar tu aportación.\n¡Mil gracias de corazón!',
+    bizumTo:'📱 Enviar Bizum a',amountTo:'Importe a enviar',
+    backBtn:'← Volver al listado',footerSub:'Gracias por ser parte de esta gran aventura',
+    support:'Apoyar ♡',
+    chinaLabel:'China',japanLabel:'Japón',nzLabel:'Nueva Zelanda',generalLabel:'Generales',
+    raisedFor:'♡ Apoyado:',
   }
 };
 
 
-/* ──────────────────────────────
-   COUNTRIES DATA (bilingual)
-────────────────────────────── */
-const COUNTRIES = [
-  { id:'china', cls:'china',
-    flag:'🇨🇳',
-    name:    { ca:'Xina',         es:'China' },
-    tagline: { ca:'De la Ciutat Prohibida als temples Shaolin',
-               es:'De la Ciudad Prohibida a los templos Shaolin' },
-    items:[
-      {id:'cn1', emoji:'🛂', name:{ca:'Visat d\'entrada',               es:'Visado de entrada'},               price:200},
-      {id:'cn2', emoji:'🏯', name:{ca:'Entrada Ciutat Prohibida Pequín', es:'Entrada Ciudad Prohibida Pekín'},  price:100},
-      {id:'cn3', emoji:'🥋', name:{ca:'Retir amb monjos Shaolin',        es:'Retiro con monjes Shaolin'},       price:250},
-      {id:'cn4', emoji:'💊', name:{ca:'Sèrum isotònic gastroenteritis',  es:'Suero isotónico gastroenteritis'}, price:100},
-    ]},
-  { id:'japan', cls:'japan',
-    flag:'🇯🇵',
-    name:    { ca:'Japó',         es:'Japón' },
-    tagline: { ca:'Ramen, sumo i secrets de geisha',
-               es:'Ramen, sumo y secretos de geisha' },
-    items:[
-      {id:'jp1', emoji:'🍜', name:{ca:'Ramen per a l\'Anna',            es:'Ramen para Anna'},                  price:200},
-      {id:'jp2', emoji:'💆', name:{ca:'Massatge de cap per a l\'Héctor', es:'Masaje de cabeza para Héctor'},    price:50},
-      {id:'jp3', emoji:'🤼', name:{ca:'Entrades combat de sumo',         es:'Entradas combate de sumo'},        price:100},
-      {id:'jp4', emoji:'🌸', name:{ca:'Curs preparatori de Geisha',      es:'Curso preparatorio de Geisha'},    price:500},
-      {id:'jp5', emoji:'🍜', name:{ca:'Més ramen per a l\'Anna',         es:'Más ramen para Anna'},             price:100},
-    ]},
-  { id:'vietnam', cls:'vietnam',
-    flag:'🇻🇳',
-    name:    { ca:'Vietnam',      es:'Vietnam' },
-    tagline: { ca:'Motos, mercats i mosquits',
-               es:'Motos, mercados y mosquitos' },
-    items:[
-      {id:'vn1', emoji:'👗', name:{ca:'Outfit de marca falsa',           es:'Outfit de marca falsa'},           price:50},
-      {id:'vn2', emoji:'🛵', name:{ca:'Lloguer de motos',                es:'Alquiler de motos'},               price:100},
-      {id:'vn3', emoji:'🤝', name:{ca:'Extra per a mals regatejos',      es:'Extra para malos regateos'},       price:250},
-      {id:'vn4', emoji:'🦟', name:{ca:'6 litres repel·lent mosquit',     es:'6 litros repelente mosquito'},     price:200},
-    ]},
-  { id:'nz', cls:'nz',
-    flag:'🇳🇿',
-    name:    { ca:'Nova Zelanda', es:'Nueva Zelanda' },
-    tagline: { ca:'Hobbits, pingüins i aigua a preu d\'or',
-               es:'Hobbits, pingüinos y agua a precio de oro' },
-    items:[
-      {id:'nz1', emoji:'🧙', name:{ca:'Entrada Hobbiton',                 es:'Entrada Hobbiton'},                price:200},
-      {id:'nz2', emoji:'🚐', name:{ca:'Lloguer autocaravana',             es:'Alquiler autocaravana'},           price:500},
-      {id:'nz3', emoji:'🐧', name:{ca:'Tour avistament pingüins',         es:'Tour avistamiento pingüinos'},     price:300},
-      {id:'nz4', emoji:'💧', name:{ca:'Ampolla d\'aigua 33cl',            es:'Botella agua 33cl'},               price:1000},
-    ]},
-  { id:'general', cls:'general',
-    flag:'🌐',
-    name:    { ca:'Generals',     es:'Generales' },
-    tagline: { ca:'El que cal perquè tot funcioni (o no)',
-               es:'Lo que hace falta para que todo funcione (o no)' },
-    items:[
-      {id:'ge1', emoji:'🛡️', name:{ca:'Assegurança de viatge',         es:'Seguro de viaje'},                  price:500},
-      {id:'ge2', emoji:'🎁', name:{ca:'Souvenirs família i amics',      es:'Souvenirs familia y amigos'},       price:500},
-      {id:'ge3', emoji:'🧳', name:{ca:'Equipatge perdut per l\'Héctor', es:'Equipaje perdido por Héctor'},      price:250},
-      {id:'ge4', emoji:'📶', name:{ca:'eSIM per a internet',            es:'eSIM para internet'},               price:250},
-      {id:'ge5', emoji:'💰', name:{ca:'Suborns policies i duanes',      es:'Sobornos policías y aduanas'},      price:300},
-    ]},
+const COUNTRIES=[
+  {id:'china',cls:'china',flag:'🇨🇳',
+   name:{ca:'Xina',es:'China'},
+   tagline:{ca:'De la Ciutat Prohibida als temples Shaolin',es:'De la Ciudad Prohibida a los templos Shaolin'},
+   items:[
+    {id:'cn1',emoji:'🛂',name:{ca:'Visat d\'entrada',es:'Visado de entrada'}},
+    {id:'cn2',emoji:'🏯',name:{ca:'Entrada Ciutat Prohibida Pequín',es:'Entrada Ciudad Prohibida Pekín'}},
+    {id:'cn3',emoji:'🥋',name:{ca:'Retir amb monjos Shaolin',es:'Retiro con monjes Shaolin'}},
+    {id:'cn4',emoji:'💊',name:{ca:'Sèrum isotònic gastroenteritis',es:'Suero isotónico gastroenteritis'}},
+  ]},
+  {id:'japan',cls:'japan',flag:'🇯🇵',
+   name:{ca:'Japó',es:'Japón'},
+   tagline:{ca:'Ramen, sumo i secrets de geisha',es:'Ramen, sumo y secretos de geisha'},
+   items:[
+    {id:'jp1',emoji:'🍜',name:{ca:'Ramen per a l\'Anna',es:'Ramen para Anna'}},
+    {id:'jp2',emoji:'💆',name:{ca:'Massatge de cap per a l\'Héctor',es:'Masaje de cabeza para Héctor'}},
+    {id:'jp3',emoji:'🤼',name:{ca:'Entrades combat de sumo',es:'Entradas combate de sumo'}},
+    {id:'jp4',emoji:'🌸',name:{ca:'Curs preparatori de Geisha',es:'Curso preparatorio de Geisha'}},
+    {id:'jp5',emoji:'🍜',name:{ca:'Més ramen per a l\'Anna',es:'Más ramen para Anna'}},
+  ]},
+  {id:'vietnam',cls:'vietnam',flag:'🇻🇳',
+   name:{ca:'Vietnam',es:'Vietnam'},
+   tagline:{ca:'Motos, mercats i mosquits',es:'Motos, mercados y mosquitos'},
+   items:[
+    {id:'vn1',emoji:'👗',name:{ca:'Outfit de marca falsa',es:'Outfit de marca falsa'}},
+    {id:'vn2',emoji:'🛵',name:{ca:'Lloguer de motos',es:'Alquiler de motos'}},
+    {id:'vn3',emoji:'🤝',name:{ca:'Extra per a mals regatejos',es:'Extra para malos regateos'}},
+    {id:'vn4',emoji:'🦟',name:{ca:'6 litres repel·lent mosquit',es:'6 litros repelente mosquito'}},
+  ]},
+  {id:'nz',cls:'nz',flag:'🇳🇿',
+   name:{ca:'Nova Zelanda',es:'Nueva Zelanda'},
+   tagline:{ca:'Hobbits, pingüins i aigua a preu d\'or',es:'Hobbits, pingüinos y agua a precio de oro'},
+   items:[
+    {id:'nz1',emoji:'🧙',name:{ca:'Entrada Hobbiton',es:'Entrada Hobbiton'}},
+    {id:'nz2',emoji:'🚐',name:{ca:'Lloguer autocaravana',es:'Alquiler autocaravana'}},
+    {id:'nz3',emoji:'🐧',name:{ca:'Tour avistament pingüins',es:'Tour avistamiento pingüinos'}},
+    {id:'nz4',emoji:'💧',name:{ca:'Ampolla d\'aigua 33cl',es:'Botella agua 33cl'}},
+  ]},
+  {id:'general',cls:'general',flag:'🌐',
+   name:{ca:'Generals',es:'Generales'},
+   tagline:{ca:'El que cal perquè tot funcioni (o no)',es:'Lo que hace falta para que todo funcione (o no)'},
+   items:[
+    {id:'ge1',emoji:'🛡️',name:{ca:'Assegurança de viatge',es:'Seguro de viaje'}},
+    {id:'ge2',emoji:'🎁',name:{ca:'Souvenirs família i amics',es:'Souvenirs familia y amigos'}},
+    {id:'ge3',emoji:'🧳',name:{ca:'Equipatge perdut per l\'Héctor',es:'Equipaje perdido por Héctor'}},
+    {id:'ge4',emoji:'📶',name:{ca:'eSIM per a internet',es:'eSIM para internet'}},
+    {id:'ge5',emoji:'💰',name:{ca:'Suborns policies i duanes',es:'Sobornos policías y aduanas'}},
+  ]},
 ];
 
 
-const BTN_COLORS = {
-  china:'#8fa8cc', japan:'#5a9488', vietnam:'#3d7060', nz:'#58b0a6', general:'#c8a870'
-};
+const BTN_COLORS={china:'#8fa8cc',japan:'#52907e',vietnam:'#346658',nz:'#48a89e',general:'#bea070'};
 
 
-/* ──────────────────────────────
-   STATE
-────────────────────────────── */
-function loadST(){ try{ return JSON.parse(localStorage.getItem('hwt6')||'{}')} catch{ return{}} }
-function saveST(s){ localStorage.setItem('hwt6',JSON.stringify(s)); }
-let ST = loadST();
-COUNTRIES.forEach(c=>c.items.forEach(i=>{ if(ST[i.id]==null) ST[i.id]=0; }));
+function intensityLevel(a){
+  if(a<=0)return 0;if(a<25)return 1;if(a<75)return 2;
+  if(a<150)return 3;if(a<300)return 4;return 5;
+}
+function barWidth(a){
+  if(a<=0)return 0;
+  return Math.min(100,Math.round(18*Math.log10(a+1)));
+}
+
+
+function loadST(){try{return JSON.parse(localStorage.getItem('hwt7')||'{}')}catch{return{}}}
+function saveST(s){localStorage.setItem('hwt7',JSON.stringify(s))}
+let ST=loadST();
+COUNTRIES.forEach(c=>c.items.forEach(i=>{if(ST[i.id]==null)ST[i.id]=0}));
 saveST(ST);
 
 
-/* ──────────────────────────────
-   LANGUAGE
-────────────────────────────── */
-let lang = 'ca';
+let lang='ca';
 
 
-function setLang(l) {
-  lang = l;
-  document.getElementById('btn-ca').classList.toggle('active', l==='ca');
-  document.getElementById('btn-es').classList.toggle('active', l==='es');
-  applyTranslations();
-  render();
+function setLang(l){
+  lang=l;
+  document.getElementById('btn-ca').classList.toggle('active',l==='ca');
+  document.getElementById('btn-es').classList.toggle('active',l==='es');
+  applyTranslations();render();
 }
 
 
-function applyTranslations() {
-  const t = T[lang];
-  // hero sub with newlines → <br>
-  const sub = t.heroSub.replace(/\n/g,'<br>');
-  document.getElementById('hero-sub-text').innerHTML = sub;
-  document.getElementById('iNombre').placeholder = t.yourNamePh;
-  document.getElementById('btnConfirm').textContent = t.confirmBtn;
-  // data-i elements
-  document.querySelectorAll('[data-i]').forEach(el => {
-    const key = el.getAttribute('data-i');
-    if (t[key] !== undefined && typeof t[key] === 'string') {
-      el.textContent = t[key];
-    }
+function applyTranslations(){
+  const t=T[lang];
+  document.getElementById('hero-sub-text').innerHTML=t.heroSub.replace(/\n/g,'<br>');
+  document.getElementById('iNombre').placeholder=t.yourNamePh;
+  document.getElementById('btnConfirm').textContent=t.confirmBtn;
+  document.querySelectorAll('[data-i]').forEach(el=>{
+    const k=el.getAttribute('data-i');
+    if(t[k]&&typeof t[k]==='string')el.textContent=t[k];
   });
-  document.querySelector('.hero-route span:last-child [data-i]').textContent = t.generalLabel;
 }
 
 
-/* ──────────────────────────────
-   RENDER
-────────────────────────────── */
-function render() {
-  const t = T[lang];
-  const main = document.getElementById('main');
-  main.innerHTML = '';
-  let gR=0, gO=0;
+function render(){
+  const t=T[lang];
+  const main=document.getElementById('main');
+  main.innerHTML='';
+  let gTotal=0;
 
 
-  COUNTRIES.forEach(c => {
-    const cR = c.items.reduce((s,i)=>s+(ST[i.id]||0),0);
-    const cO = c.items.reduce((s,i)=>s+i.price,0);
-    const cP = Math.min(Math.round(cR/cO*100),100);
-    gR+=cR; gO+=cO;
-
-
-    const sec = document.createElement('div');
-    sec.className = 'section-wrap';
-    sec.innerHTML = `
+  COUNTRIES.forEach(c=>{
+    const cTotal=c.items.reduce((s,i)=>s+(ST[i.id]||0),0);
+    gTotal+=cTotal;
+    const sec=document.createElement('div');
+    sec.className='section-wrap';
+    sec.innerHTML=`
       <div class="country-header">
         <div class="ch-bg ${c.cls}-bg"></div>
+        <div class="ch-fade"></div>
         <div class="ch-content">
           <span class="ch-flag">${c.flag}</span>
           <div class="ch-name">${c.name[lang]}</div>
           <div class="ch-tagline">${c.tagline[lang]}</div>
-          <div class="ch-prog-row">
-            <div class="ch-track"><div class="ch-fill" style="width:${cP}%"></div></div>
-            <span class="ch-pct">${cP}%</span>
-          </div>
+          ${cTotal>0?`<div class="ch-raised">${t.raisedFor} ${cTotal} €</div>`:''}
         </div>
       </div>
       <div class="items-list" id="lst-${c.id}"></div>`;
     main.appendChild(sec);
 
 
-    const lst = sec.querySelector(`#lst-${c.id}`);
-    c.items.forEach(item => {
-      const r = ST[item.id]||0;
-      const p = Math.min(Math.round(r/item.price*100),100);
-      const full = r>=item.price;
-      const card = document.createElement('div');
-      card.className = `item-card ${c.cls}-border`;
-      card.innerHTML = `
+    const lst=sec.querySelector(`#lst-${c.id}`);
+    c.items.forEach(item=>{
+      const r=ST[item.id]||0;
+      const lvl=intensityLevel(r);
+      const w=barWidth(r);
+      const card=document.createElement('div');
+      card.className='item-card';
+      card.innerHTML=`
         <div class="item-emoji">${item.emoji}</div>
         <div class="item-body">
           <div class="item-name">${item.name[lang]}</div>
-          <div class="i-track"><div class="i-fill ${c.cls}-fi" style="width:${p}%"></div></div>
-          <div class="item-meta">
-            <span>${r} € ${t.ofText} ${item.price} €</span>
-            <span class="pct ${c.cls}-c">${p}%</span>
-          </div>
+          <div class="i-track"><div class="i-fill int-${lvl}" style="width:${w}%"></div></div>
+          <div class="item-meta"><span class="raised-amt">${r>0?`♡ ${r} €`:''}</span></div>
         </div>
         <div class="item-right">
-          <div class="item-price">${item.price} €</div>
-          ${full
-            ? `<div class="done-tag">${t.complete}</div>`
-            : `<button class="btn-apoyar ${c.cls}-c" data-id="${item.id}" data-cid="${c.id}">${t.support}</button>`
-          }
+          <button class="btn-apoyar ${c.cls}-c" data-id="${item.id}" data-cid="${c.id}">${t.support}</button>
         </div>`;
       lst.appendChild(card);
     });
   });
 
 
-  const gP = Math.min(Math.round(gR/gO*100),100);
-  document.getElementById('gRec').innerHTML = `${gR.toLocaleString('es-ES')} <em>€</em>`;
-  document.getElementById('gObj').innerHTML  = `${gO.toLocaleString('es-ES')} <em>€</em>`;
-  document.getElementById('gPct').textContent = `${gP}%`;
-  document.getElementById('gFill').style.width = `${gP}%`;
-
-
-  document.querySelectorAll('.btn-apoyar').forEach(b =>
-    b.addEventListener('click', ()=>openModal(b.dataset.id, b.dataset.cid))
+  document.getElementById('gRec').innerHTML=`${gTotal.toLocaleString('es-ES')} <em>€</em>`;
+  document.querySelectorAll('.btn-apoyar').forEach(b=>
+    b.addEventListener('click',()=>openModal(b.dataset.id,b.dataset.cid))
   );
 }
 
 
-/* ──────────────────────────────
-   MODAL
-────────────────────────────── */
-let curId=null, curCid=null;
+let curId=null,curCid=null;
 
 
-function openModal(itemId, cid) {
-  const t = T[lang];
-  const c = COUNTRIES.find(x=>x.id===cid);
-  const item = c.items.find(x=>x.id===itemId);
-  const avail = item.price-(ST[itemId]||0);
-  curId=itemId; curCid=cid;
-
-
-  document.getElementById('mEmoji').textContent   = item.emoji;
-  document.getElementById('mName').textContent    = item.name[lang];
-  document.getElementById('mCountry').textContent = `${c.flag} ${c.name[lang]} · ${t.countryObj} ${item.price} €`;
-  document.getElementById('mAvail').textContent   = `${avail} €`;
-  document.getElementById('iNombre').value        = '';
-  document.getElementById('iCantidad').value      = '';
-  const e = document.getElementById('errBox');
-  e.textContent=''; e.classList.remove('show');
-  document.getElementById('formView').style.display = 'block';
+function openModal(itemId,cid){
+  const t=T[lang];
+  const c=COUNTRIES.find(x=>x.id===cid);
+  const item=c.items.find(x=>x.id===itemId);
+  curId=itemId;curCid=cid;
+  document.getElementById('mEmoji').textContent=item.emoji;
+  document.getElementById('mName').textContent=item.name[lang];
+  document.getElementById('mCountry').textContent=`${c.flag} ${c.name[lang]}`;
+  document.getElementById('mSoFar').textContent=`${ST[itemId]||0} €`;
+  document.getElementById('iNombre').value='';
+  document.getElementById('iCantidad').value='';
+  const e=document.getElementById('errBox');
+  e.textContent='';e.classList.remove('show');
+  document.getElementById('formView').style.display='block';
   document.getElementById('thanksView').classList.remove('show');
-  document.getElementById('btnConfirm').style.background = BTN_COLORS[cid]||'#4e7e6e';
-
-
+  document.getElementById('btnConfirm').style.background=BTN_COLORS[cid]||'#4e7e6e';
   document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(()=>document.getElementById('iNombre').focus(), 350);
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('iNombre').focus(),350);
 }
 
 
-function closeModal() {
+function closeModal(){
   document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow = '';
-  curId=null; curCid=null;
+  document.body.style.overflow='';
+  curId=null;curCid=null;
 }
 
 
-function confirmar() {
-  const t = T[lang];
-  const nombre   = document.getElementById('iNombre').value.trim();
-  const cantidad = parseFloat(document.getElementById('iCantidad').value);
-  const e = document.getElementById('errBox');
+function confirmar(){
+  const t=T[lang];
+  const nombre=document.getElementById('iNombre').value.trim();
+  const cantidad=parseFloat(document.getElementById('iCantidad').value);
+  const e=document.getElementById('errBox');
   e.classList.remove('show');
-
-
-  const c    = COUNTRIES.find(x=>x.id===curCid);
-  const item = c.items.find(x=>x.id===curId);
-  const avail = item.price-(ST[curId]||0);
-
-
-  if (!nombre) {
-    e.textContent = t.errName; return e.classList.add('show');
-  }
-  if (!cantidad||cantidad<=0||isNaN(cantidad)) {
-    e.textContent = t.errAmount; return e.classList.add('show');
-  }
-  if (cantidad>avail) {
-    e.textContent = t.errOver(item.name[lang], avail); return e.classList.add('show');
-  }
-
-
-  ST[curId] = (ST[curId]||0) + cantidad;
+  if(!nombre){e.textContent=t.errName;return e.classList.add('show')}
+  if(!cantidad||cantidad<=0||isNaN(cantidad)){e.textContent=t.errAmount;return e.classList.add('show')}
+  ST[curId]=(ST[curId]||0)+cantidad;
   saveST(ST);
-
-
-  document.getElementById('formView').style.display = 'none';
-  document.getElementById('tTitle').textContent    = t.thanks(nombre);
-  document.getElementById('tAmount').textContent   = `${cantidad} €`;
-  // Update sendBizum multi-line
-  document.querySelector('[data-i="sendBizum"]').innerHTML = t.sendBizum.replace(/\n/g,'<br>');
+  document.getElementById('formView').style.display='none';
+  document.getElementById('tTitle').textContent=t.thanks(nombre);
+  document.getElementById('tAmount').textContent=`${cantidad} €`;
+  document.querySelector('[data-i="sendBizum"]').innerHTML=t.sendBizum.replace(/\n/g,'<br>');
   document.getElementById('thanksView').classList.add('show');
 }
 
 
-function finalizar() { closeModal(); render(); }
-
-
-document.getElementById('overlay').addEventListener('click', function(e) {
-  if (e.target===this) closeModal();
-});
-
-
-/* ──────────────────────────────
-   INIT
-────────────────────────────── */
-applyTranslations();
-render();
+function finalizar(){closeModal();render()}
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeModal()});
+applyTranslations();render();
 </script>
 </body>
 </html>

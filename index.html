@@ -34,10 +34,42 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
 .hero-skyline{width:100%;display:block;position:relative}
 .hero-skyline img{width:100%;max-height:260px;object-fit:cover;object-position:center 40%;display:block}
 .hero-skyline::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:70px;background:linear-gradient(to bottom,transparent 0%,rgba(252,249,243,.7) 55%,var(--paper) 100%);pointer-events:none}
-.hero-body{position:relative;padding:16px 28px 28px;text-align:center;background:var(--paper)}
+.hero-body{position:relative;padding:16px 28px 20px;text-align:center;background:var(--paper)}
 .hero-eyebrow{font-family:'Caveat',cursive;font-size:21px;font-weight:700;color:var(--sage-d);letter-spacing:.03em;margin-bottom:8px}
 .hero-sub{font-family:'Lora',serif;font-size:14.5px;font-style:italic;color:var(--muted);line-height:1.95;margin-bottom:0;max-width:310px;margin-left:auto;margin-right:auto}
 .hero-sub mark{background:none;color:var(--sage-d);font-style:normal;padding-bottom:3px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='7' viewBox='0 0 180 7'%3E%3Cpath d='M2 5 Q20 2 40 4.5 Q65 7 90 3.5 Q115 0 140 4 Q160 6.5 178 4' stroke='%234e7e6e' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center bottom 0;background-size:100% auto}
+
+
+/* POLAROID CAROUSEL */
+.carousel-wrap{position:relative;padding:24px 0 32px;background:var(--paper);overflow:hidden}
+.carousel-wrap::before,.carousel-wrap::after{content:'';position:absolute;top:0;bottom:0;width:44px;z-index:10;pointer-events:none}
+.carousel-wrap::before{left:0;background:linear-gradient(to right,var(--paper) 0%,transparent 100%)}
+.carousel-wrap::after{right:0;background:linear-gradient(to left,var(--paper) 0%,transparent 100%)}
+.carousel-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:12px 52px 12px;cursor:grab;user-select:none}
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-track.dragging{cursor:grabbing}
+
+
+/* Polaroid frame — authentic proportions */
+.polaroid{flex-shrink:0;scroll-snap-align:center;background:#fdf8f0;padding:9px 9px 38px;width:148px;box-shadow:0 4px 18px rgba(0,0,0,.14),0 1px 4px rgba(0,0,0,.10),inset 0 0 0 1px rgba(0,0,0,.04);transition:transform .3s ease,box-shadow .3s ease;position:relative}
+.polaroid::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;border:1px solid rgba(0,0,0,.07);pointer-events:none;z-index:2}
+.polaroid::after{content:'';position:absolute;left:9px;right:9px;bottom:0;height:38px;background:linear-gradient(to bottom,rgba(255,248,235,0) 0%,rgba(255,248,220,.25) 100%);pointer-events:none;z-index:1}
+.polaroid img{width:100%;height:128px;object-fit:cover;display:block;filter:saturate(.82) contrast(1.03) sepia(.08);position:relative;z-index:1}
+.polaroid:hover{transform:rotate(0deg) scale(1.05) !important;box-shadow:0 10px 32px rgba(0,0,0,.18);z-index:5}
+
+
+/* Dots */
+.carousel-dots{display:flex;justify-content:center;gap:7px;margin-top:4px;padding-bottom:4px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background .25s,transform .25s;cursor:pointer}
+.dot.active{background:var(--sage-l);transform:scale(1.3)}
+
+
+/* Nav arrows */
+.carousel-nav{display:none;position:absolute;top:50%;transform:translateY(-60%);background:rgba(255,255,255,.92);border:1.5px solid var(--border);border-radius:50%;width:34px;height:34px;align-items:center;justify-content:center;cursor:pointer;z-index:20;box-shadow:0 2px 8px rgba(0,0,0,.1);font-size:16px;color:var(--sage-d);transition:background .2s}
+.carousel-nav:hover{background:#fff}
+.carousel-nav.prev{left:8px}
+.carousel-nav.next{right:8px}
+@media(min-width:380px){.carousel-nav{display:flex}}
 
 
 /* COUNTRY HEADER */
@@ -106,9 +138,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
 .f-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(118,196,186,.15)}
 .btn-confirm{width:100%;padding:16px;border:none;border-radius:100px;color:#fff;font-family:'Caveat',cursive;font-size:19px;font-weight:700;cursor:pointer;transition:opacity .2s,transform .1s;letter-spacing:.02em}
 .btn-confirm:active{transform:scale(.97);opacity:.85}
-
-
-/* THANKS */
 .thanks{display:none;padding:30px 20px 44px;text-align:center}
 .thanks.show{display:block}
 .thanks-ico{font-size:54px;margin-bottom:12px}
@@ -156,6 +185,29 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
     <p class="hero-eyebrow">✈ Hector & Anna — Love World Tour</p>
     <p class="hero-sub" id="hero-sub-text"></p>
   </div>
+
+
+  <!-- POLAROID CAROUSEL -->
+  <div class="carousel-wrap">
+    <button class="carousel-nav prev" id="prev">&#8249;</button>
+    <button class="carousel-nav next" id="next">&#8250;</button>
+    <div class="carousel-track" id="track">
+      <div class="polaroid"><img src="foto1.jpg" alt="Atacama"></div>
+      <div class="polaroid"><img src="foto2.jpg" alt="Teide"></div>
+      <div class="polaroid"><img src="foto3.jpg" alt="Madeira"></div>
+      <div class="polaroid"><img src="foto4.jpg" alt="Dolomites"></div>
+      <div class="polaroid"><img src="foto5.jpg" alt="Snorkel"></div>
+      <div class="polaroid"><img src="foto6.jpg" alt="Islandia"></div>
+    </div>
+    <div class="carousel-dots" id="dots">
+      <div class="dot active" data-i="0"></div>
+      <div class="dot" data-i="1"></div>
+      <div class="dot" data-i="2"></div>
+      <div class="dot" data-i="3"></div>
+      <div class="dot" data-i="4"></div>
+      <div class="dot" data-i="5"></div>
+    </div>
+  </div>
 </header>
 
 
@@ -180,16 +232,16 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
           <div class="m-name" id="mName"></div>
           <div class="m-country" id="mCountry"></div>
         </div>
-        <button class="modal-close" onclick="closeModal()">✕</button>
+        <button class="modal-close" onclick="closeModal()">&#x2715;</button>
       </div>
       <div class="modal-body">
         <div class="err-box" id="errBox"></div>
         <div class="f-field">
-          <label class="f-label" data-i="yourName">✏️ El teu nom</label>
+          <label class="f-label" data-i="yourName">&#x270F;&#xFE0F; El teu nom</label>
           <input class="f-input" type="text" id="iNombre" autocomplete="given-name">
         </div>
         <div class="f-field">
-          <label class="f-label" data-i="amount">💛 Quantitat a aportar (€)</label>
+          <label class="f-label" data-i="amount">&#x1F49B; Quantitat a aportar (&#x20AC;)</label>
           <input class="f-input" type="number" id="iCantidad" placeholder="0" min="1" inputmode="numeric">
         </div>
         <button class="btn-confirm" id="btnConfirm" onclick="confirmar()"></button>
@@ -200,13 +252,13 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
       <div class="thanks-title" id="tTitle"></div>
       <p class="thanks-desc" data-i="sendBizum"></p>
       <div class="bizum-card">
-        <span class="biz-lbl" data-i="bizumTo">Aquí tens el telèfon de qualsevol dels dos:</span>
+        <span class="biz-lbl" data-i="bizumTo"></span>
         <div class="biz-name">Hector</div>
         <div class="biz-phone">663 641 410</div>
         <div class="biz-name">Anna</div>
         <div class="biz-phone" style="margin-bottom:0">679 071 103</div>
         <hr class="biz-divider">
-        <span class="biz-amount-lbl" data-i="amountTo">Import a enviar</span>
+        <span class="biz-amount-lbl" data-i="amountTo"></span>
         <div class="biz-amount" id="tAmount"></div>
       </div>
       <button class="btn-back" onclick="finalizar()" data-i="backBtn"></button>
@@ -226,12 +278,9 @@ const T={
     thanks:n=>`Gràcies, ${n}! 🎉`,
     sendBizum:'Per completar la teva aportació només falta enviar el bizum.\nMil gràcies de tot cor!',
     bizumTo:'Aquí tens el telèfon de qualsevol dels dos:',
-    amountTo:'Import a enviar',
-    backBtn:'← Tornar al llistat',
+    amountTo:'Import a enviar',backBtn:'← Tornar al llistat',
     footerSub:'Gràcies per ser part d\'aquesta gran aventura',
     support:'Recolzar ♡',
-    chinaLabel:'Xina',japanLabel:'Japó',nzLabel:'Nova Zelanda',generalLabel:'Generals',
-    raisedFor:'♡ Recolzat:',
   },
   es:{
     heroSub:'¡Nos casamos y nos vamos al mundo! 🌍\nSi te apetece sumarte a la aventura con un detalle,\naquí tienes ideas para apoyarnos.\nEsto es <mark>completamente voluntario</mark>\n— lo más importante ya lo tenemos: vosotros. ❤️',
@@ -242,58 +291,40 @@ const T={
     thanks:n=>`¡Gracias, ${n}! 🎉`,
     sendBizum:'Para completar tu aportación solo falta enviar el bizum.\n¡Mil gracias de corazón!',
     bizumTo:'Aquí tienes el teléfono de cualquiera de los dos:',
-    amountTo:'Importe a enviar',
-    backBtn:'← Volver al listado',
+    amountTo:'Importe a enviar',backBtn:'← Volver al listado',
     footerSub:'Gracias por ser parte de esta gran aventura',
     support:'Apoyar ♡',
-    chinaLabel:'China',japanLabel:'Japón',nzLabel:'Nueva Zelanda',generalLabel:'Generales',
-    raisedFor:'♡ Apoyado:',
   }
 };
 
 
 const COUNTRIES=[
-  {id:'china',cls:'china',flag:'🇨🇳',
-   name:{ca:'Xina',es:'China'},
-   tagline:{ca:'De la Ciutat Prohibida als temples Shaolin',es:'De la Ciudad Prohibida a los templos Shaolin'},
-   items:[
+  {id:'china',cls:'china',flag:'🇨🇳',name:{ca:'Xina',es:'China'},tagline:{ca:'De la Ciutat Prohibida als temples Shaolin',es:'De la Ciudad Prohibida a los templos Shaolin'},items:[
     {id:'cn1',emoji:'🛂',name:{ca:'Visat d\'entrada',es:'Visado de entrada'}},
     {id:'cn2',emoji:'🏯',name:{ca:'Entrada Ciutat Prohibida Pequín',es:'Entrada Ciudad Prohibida Pekín'}},
     {id:'cn3',emoji:'🥋',name:{ca:'Retir amb monjos Shaolin',es:'Retiro con monjes Shaolin'}},
     {id:'cn4',emoji:'💊',name:{ca:'Sèrum isotònic gastroenteritis',es:'Suero isotónico gastroenteritis'}},
   ]},
-  {id:'japan',cls:'japan',flag:'🇯🇵',
-   name:{ca:'Japó',es:'Japón'},
-   tagline:{ca:'Ramen, sumo i secrets de geisha',es:'Ramen, sumo y secretos de geisha'},
-   items:[
+  {id:'japan',cls:'japan',flag:'🇯🇵',name:{ca:'Japó',es:'Japón'},tagline:{ca:'Ramen, sumo i secrets de geisha',es:'Ramen, sumo y secretos de geisha'},items:[
     {id:'jp1',emoji:'🍜',name:{ca:'Ramen per a l\'Anna',es:'Ramen para Anna'}},
     {id:'jp2',emoji:'💆',name:{ca:'Massatge de cap per a l\'Hector',es:'Masaje de cabeza para Hector'}},
     {id:'jp3',emoji:'🤼',name:{ca:'Entrades combat de sumo',es:'Entradas combate de sumo'}},
     {id:'jp4',emoji:'🌸',name:{ca:'Curs preparatori de Geisha',es:'Curso preparatorio de Geisha'}},
     {id:'jp5',emoji:'🍜',name:{ca:'Més ramen per a l\'Anna',es:'Más ramen para Anna'}},
   ]},
-  {id:'vietnam',cls:'vietnam',flag:'🇻🇳',
-   name:{ca:'Vietnam',es:'Vietnam'},
-   tagline:{ca:'Motos, mercats i mosquits',es:'Motos, mercados y mosquitos'},
-   items:[
+  {id:'vietnam',cls:'vietnam',flag:'🇻🇳',name:{ca:'Vietnam',es:'Vietnam'},tagline:{ca:'Motos, mercats i mosquits',es:'Motos, mercados y mosquitos'},items:[
     {id:'vn1',emoji:'👗',name:{ca:'Outfit de marca falsa',es:'Outfit de marca falsa'}},
     {id:'vn2',emoji:'🛵',name:{ca:'Lloguer de motos',es:'Alquiler de motos'}},
     {id:'vn3',emoji:'🤝',name:{ca:'Extra per a mals regatejos',es:'Extra para malos regateos'}},
     {id:'vn4',emoji:'🦟',name:{ca:'6 litres repel·lent mosquit',es:'6 litros repelente mosquito'}},
   ]},
-  {id:'nz',cls:'nz',flag:'🇳🇿',
-   name:{ca:'Nova Zelanda',es:'Nueva Zelanda'},
-   tagline:{ca:'Hobbits, pingüins i aigua a preu d\'or',es:'Hobbits, pingüinos y agua a precio de oro'},
-   items:[
+  {id:'nz',cls:'nz',flag:'🇳🇿',name:{ca:'Nova Zelanda',es:'Nueva Zelanda'},tagline:{ca:'Hobbits, pingüins i aigua a preu d\'or',es:'Hobbits, pingüinos y agua a precio de oro'},items:[
     {id:'nz1',emoji:'🧙',name:{ca:'Entrada Hobbiton',es:'Entrada Hobbiton'}},
     {id:'nz2',emoji:'🚐',name:{ca:'Lloguer autocaravana',es:'Alquiler autocaravana'}},
     {id:'nz3',emoji:'🐧',name:{ca:'Tour avistament pingüins',es:'Tour avistamiento pingüinos'}},
     {id:'nz4',emoji:'💧',name:{ca:'Ampolla d\'aigua 33cl',es:'Botella agua 33cl'}},
   ]},
-  {id:'general',cls:'general',flag:'🌐',
-   name:{ca:'Generals',es:'Generales'},
-   tagline:{ca:'El que cal perquè tot funcioni (o no)',es:'Lo que hace falta para que todo funcione (o no)'},
-   items:[
+  {id:'general',cls:'general',flag:'🌐',name:{ca:'Generals',es:'Generales'},tagline:{ca:'El que cal perquè tot funcioni (o no)',es:'Lo que hace falta para que todo funcione (o no)'},items:[
     {id:'ge1',emoji:'🛡️',name:{ca:'Assegurança de viatge',es:'Seguro de viaje'}},
     {id:'ge2',emoji:'🎁',name:{ca:'Souvenirs família i amics',es:'Souvenirs familia y amigos'}},
     {id:'ge3',emoji:'🧳',name:{ca:'Equipatge perdut per l\'Hector',es:'Equipaje perdido por Hector'}},
@@ -304,18 +335,11 @@ const COUNTRIES=[
 
 
 const BTN_COLORS={china:'#8fa8cc',japan:'#52907e',vietnam:'#346658',nz:'#48a89e',general:'#bea070'};
+const ROTATIONS=[-2.8,1.5,-1.2,2.5,-2.0,1.8];
 
 
-function intensityLevel(a){
-  if(a<=0)return 0;if(a<25)return 1;if(a<75)return 2;
-  if(a<150)return 3;if(a<300)return 4;return 5;
-}
-function barWidth(a){
-  if(a<=0)return 0;
-  return Math.min(100,Math.round(18*Math.log10(a+1)));
-}
-
-
+function intensityLevel(a){if(a<=0)return 0;if(a<25)return 1;if(a<75)return 2;if(a<150)return 3;if(a<300)return 4;return 5}
+function barWidth(a){if(a<=0)return 0;return Math.min(100,Math.round(18*Math.log10(a+1)))}
 function loadST(){try{return JSON.parse(localStorage.getItem('hwt8')||'{}')}catch{return{}}}
 function saveST(s){localStorage.setItem('hwt8',JSON.stringify(s))}
 let ST=loadST();
@@ -324,93 +348,45 @@ saveST(ST);
 
 
 let lang='ca';
-
-
-function setLang(l){
-  lang=l;
-  document.getElementById('btn-ca').classList.toggle('active',l==='ca');
-  document.getElementById('btn-es').classList.toggle('active',l==='es');
-  applyTranslations();render();
-}
-
-
+function setLang(l){lang=l;document.getElementById('btn-ca').classList.toggle('active',l==='ca');document.getElementById('btn-es').classList.toggle('active',l==='es');applyTranslations();render()}
 function applyTranslations(){
   const t=T[lang];
   document.getElementById('hero-sub-text').innerHTML=t.heroSub.replace(/\n/g,'<br>');
   document.getElementById('iNombre').placeholder=t.yourNamePh;
   document.getElementById('btnConfirm').textContent=t.confirmBtn;
-  document.querySelectorAll('[data-i]').forEach(el=>{
-    const k=el.getAttribute('data-i');
-    if(t[k]&&typeof t[k]==='string')el.textContent=t[k];
-  });
+  document.querySelectorAll('[data-i]').forEach(el=>{const k=el.getAttribute('data-i');if(t[k]&&typeof t[k]==='string')el.textContent=t[k]});
 }
 
 
 function render(){
-  const t=T[lang];
-  const main=document.getElementById('main');
+  const t=T[lang],main=document.getElementById('main');
   main.innerHTML='';
-
-
   COUNTRIES.forEach(c=>{
     const sec=document.createElement('div');
     sec.className='section-wrap';
-    sec.innerHTML=`
-      <div class="country-header">
-        <div class="ch-bg ${c.cls}-bg"></div>
-        <div class="ch-fade"></div>
-        <div class="ch-content">
-          <div class="ch-name"><span class="ch-flag">${c.flag}</span>${c.name[lang]}</div>
-          <div class="ch-tagline">${c.tagline[lang]}</div>
-        </div>
-      </div>
-      <div class="items-list" id="lst-${c.id}"></div>`;
+    sec.innerHTML=`<div class="country-header"><div class="ch-bg ${c.cls}-bg"></div><div class="ch-fade"></div><div class="ch-content"><div class="ch-name"><span class="ch-flag">${c.flag}</span>${c.name[lang]}</div><div class="ch-tagline">${c.tagline[lang]}</div></div></div><div class="items-list" id="lst-${c.id}"></div>`;
     main.appendChild(sec);
-
-
     const lst=sec.querySelector(`#lst-${c.id}`);
     c.items.forEach(item=>{
-      const r=ST[item.id]||0;
-      const lvl=intensityLevel(r);
-      const w=barWidth(r);
-      const card=document.createElement('div');
+      const r=ST[item.id]||0,card=document.createElement('div');
       card.className='item-card';
-      card.innerHTML=`
-        <div class="item-emoji">${item.emoji}</div>
-        <div class="item-body">
-          <div class="item-name">${item.name[lang]}</div>
-          <div class="i-track"><div class="i-fill int-${lvl}" style="width:${w}%"></div></div>
-          <div class="item-meta"></div>
-        </div>
-        <div class="item-right">
-          <button class="btn-apoyar ${c.cls}-c" data-id="${item.id}" data-cid="${c.id}">${t.support}</button>
-        </div>`;
+      card.innerHTML=`<div class="item-emoji">${item.emoji}</div><div class="item-body"><div class="item-name">${item.name[lang]}</div><div class="i-track"><div class="i-fill int-${intensityLevel(r)}" style="width:${barWidth(r)}%"></div></div><div class="item-meta"></div></div><div class="item-right"><button class="btn-apoyar ${c.cls}-c" data-id="${item.id}" data-cid="${c.id}">${t.support}</button></div>`;
       lst.appendChild(card);
     });
   });
-
-
-  document.querySelectorAll('.btn-apoyar').forEach(b=>
-    b.addEventListener('click',()=>openModal(b.dataset.id,b.dataset.cid))
-  );
+  document.querySelectorAll('.btn-apoyar').forEach(b=>b.addEventListener('click',()=>openModal(b.dataset.id,b.dataset.cid)));
 }
 
 
 let curId=null,curCid=null;
-
-
 function openModal(itemId,cid){
-  const t=T[lang];
-  const c=COUNTRIES.find(x=>x.id===cid);
-  const item=c.items.find(x=>x.id===itemId);
+  const t=T[lang],c=COUNTRIES.find(x=>x.id===cid),item=c.items.find(x=>x.id===itemId);
   curId=itemId;curCid=cid;
   document.getElementById('mEmoji').textContent=item.emoji;
   document.getElementById('mName').textContent=item.name[lang];
   document.getElementById('mCountry').textContent=`${c.flag} ${c.name[lang]}`;
-  document.getElementById('iNombre').value='';
-  document.getElementById('iCantidad').value='';
-  const e=document.getElementById('errBox');
-  e.textContent='';e.classList.remove('show');
+  document.getElementById('iNombre').value='';document.getElementById('iCantidad').value='';
+  const e=document.getElementById('errBox');e.textContent='';e.classList.remove('show');
   document.getElementById('formView').style.display='block';
   document.getElementById('thanksView').classList.remove('show');
   document.getElementById('btnConfirm').style.background=BTN_COLORS[cid]||'#4e7e6e';
@@ -418,27 +394,14 @@ function openModal(itemId,cid){
   document.body.style.overflow='hidden';
   setTimeout(()=>document.getElementById('iNombre').focus(),350);
 }
-
-
-function closeModal(){
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow='';
-  curId=null;curCid=null;
-}
-
-
+function closeModal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';curId=null;curCid=null}
 function confirmar(){
-  const t=T[lang];
-  const nombre=document.getElementById('iNombre').value.trim();
-  const cantidad=parseFloat(document.getElementById('iCantidad').value);
-  const e=document.getElementById('errBox');
-  e.classList.remove('show');
+  const t=T[lang],nombre=document.getElementById('iNombre').value.trim(),cantidad=parseFloat(document.getElementById('iCantidad').value);
+  const e=document.getElementById('errBox');e.classList.remove('show');
   if(!nombre){e.textContent=t.errName;return e.classList.add('show')}
   if(!cantidad||cantidad<=0||isNaN(cantidad)){e.textContent=t.errAmount;return e.classList.add('show')}
-  ST[curId]=(ST[curId]||0)+cantidad;
-  saveST(ST);
-  const _c=COUNTRIES.find(x=>x.id===curCid);
-  const _item=_c.items.find(x=>x.id===curId);
+  ST[curId]=(ST[curId]||0)+cantidad;saveST(ST);
+  const _c=COUNTRIES.find(x=>x.id===curCid),_item=_c.items.find(x=>x.id===curId);
   logToGoogleForms(nombre,_item.name[lang],_c.name[lang],cantidad);
   document.getElementById('formView').style.display='none';
   document.getElementById('tTitle').textContent=t.thanks(nombre);
@@ -446,28 +409,103 @@ function confirmar(){
   document.querySelector('[data-i="sendBizum"]').innerHTML=t.sendBizum.replace(/\n/g,'<br>');
   document.getElementById('thanksView').classList.add('show');
 }
-
-
 function finalizar(){closeModal();render()}
-
-
-document.getElementById('overlay').addEventListener('click',function(e){
-  if(e.target===this)closeModal();
-});
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeModal()});
 
 
 function logToGoogleForms(nom,item,pais,importe){
   const url='https://docs.google.com/forms/d/e/1FAIpQLSfgl8Wc6BBh86hrJ3Cw5Ee7KChVBcPpzKydUTh_LsmqKYjOuQ/formResponse';
-  const params=new URLSearchParams();
-  params.append('entry.1328630691',nom);
-  params.append('entry.216860793',item);
-  params.append('entry.128831146',pais);
-  params.append('entry.876424766',importe+' €');
-  fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:params.toString()}).catch(()=>{});
+  const p=new URLSearchParams();
+  p.append('entry.1328630691',nom);p.append('entry.216860793',item);
+  p.append('entry.128831146',pais);p.append('entry.876424766',importe+' €');
+  fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.toString()}).catch(()=>{});
 }
 
 
-applyTranslations();render();
+/* ── INFINITE POLAROID CAROUSEL ── */
+const track=document.getElementById('track');
+const dotsWrap=document.getElementById('dots');
+const realCards=Array.from(document.querySelectorAll('.polaroid'));
+const TOTAL=realCards.length;
+const GAP=18;
+let currentIdx=0,isAnimating=false;
+
+
+function applyRotations(){
+  document.querySelectorAll('.polaroid').forEach((c,i)=>{
+    c.style.transform=`rotate(${ROTATIONS[i%ROTATIONS.length]}deg)`;
+  });
+}
+
+
+function buildInfiniteTrack(){
+  realCards.slice().reverse().forEach(card=>{
+    const cl=card.cloneNode(true);cl.classList.add('clone');track.insertBefore(cl,track.firstChild);
+  });
+  realCards.forEach(card=>{
+    const cl=card.cloneNode(true);cl.classList.add('clone');track.appendChild(cl);
+  });
+  applyRotations();
+}
+
+
+function cardWidth(){return (track.querySelector('.polaroid')||{offsetWidth:148}).offsetWidth+GAP}
+
+
+function jumpTo(idx){
+  track.style.transition='none';
+  track.scrollLeft=(TOTAL+idx)*cardWidth();
+}
+
+
+function goTo(idx){
+  if(isAnimating)return;isAnimating=true;
+  currentIdx=((idx%TOTAL)+TOTAL)%TOTAL;
+  updateDots();
+  track.scrollTo({left:(TOTAL+currentIdx)*cardWidth(),behavior:'smooth'});
+  setTimeout(()=>{isAnimating=false},420);
+}
+
+
+function updateDots(){
+  dotsWrap.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===currentIdx));
+}
+
+
+dotsWrap.querySelectorAll('.dot').forEach(dot=>dot.addEventListener('click',()=>goTo(parseInt(dot.dataset.i))));
+document.getElementById('prev').addEventListener('click',()=>goTo(currentIdx-1));
+document.getElementById('next').addEventListener('click',()=>goTo(currentIdx+1));
+
+
+let scrollTimer;
+track.addEventListener('scroll',()=>{
+  clearTimeout(scrollTimer);
+  const cw=cardWidth(),absIdx=Math.round(track.scrollLeft/cw);
+  currentIdx=((absIdx-TOTAL)%TOTAL+TOTAL)%TOTAL;
+  updateDots();
+  scrollTimer=setTimeout(()=>{
+    const ai=Math.round(track.scrollLeft/cardWidth());
+    if(ai<TOTAL)jumpTo(((ai%TOTAL)+TOTAL)%TOTAL);
+    else if(ai>=TOTAL*2)jumpTo(ai-TOTAL*2);
+    isAnimating=false;
+  },150);
+},{passive:true});
+
+
+let isDown=false,startX,scrollStart;
+track.addEventListener('mousedown',e=>{isDown=true;track.classList.add('dragging');startX=e.pageX-track.offsetLeft;scrollStart=track.scrollLeft});
+['mouseleave','mouseup'].forEach(ev=>track.addEventListener(ev,()=>{isDown=false;track.classList.remove('dragging')}));
+track.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();track.scrollLeft=scrollStart-(e.pageX-track.offsetLeft-startX)});
+
+
+buildInfiniteTrack();
+track.style.scrollBehavior='auto';
+jumpTo(0);
+window.addEventListener('resize',()=>jumpTo(currentIdx));
+
+
+applyTranslations();
+render();
 </script>
 </body>
 </html>
